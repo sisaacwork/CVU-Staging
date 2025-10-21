@@ -1,539 +1,724 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>CVU 2026 Partner Journey — Example</title>
-  <meta name="description" content="Scroll-based example page guiding partners from awareness to legacy across CVU engagement options." />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --bg: #0b0f14;
-      --panel: #0f1720;
-      --ink: #e6eef7;
-      --muted: #9fb0c2;
-      --accent: #2ea6ff;      /* CTBUH-ish blue accent */
-      --accent-2:#6ce5b1;     /* secondary accent */
-      --line: rgba(255,255,255,.08);
-      --card: #111924;
-      --focus: #ffe08a;
-      --shadow: 0 10px 30px rgba(0,0,0,.35);
-      --radius: 16px;
-      --radius-lg: 24px;
-      --pad: clamp(16px, 2.5vw, 28px);
-      --pad-lg: clamp(24px, 4vw, 48px);
-      --maxw: 1200px;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      font-family: Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji",sans-serif;
-      background: radial-gradient(1200px 700px at 70% 10%, #112233 0%, #0b0f14 60%);
-      color: var(--ink);
-      margin: 0;
-      line-height: 1.5;
-      -webkit-font-smoothing: antialiased;
-      text-rendering: optimizeLegibility;
-    }
-    a{color:var(--accent);text-decoration:none}
-    a:hover{text-decoration:underline}
-    .wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:var(--pad)}
-    .section{padding-block:clamp(60px,9vw,120px);border-top:1px solid var(--line)}
-    .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-    /* Header/Footer placeholders */
-    header.placeholder, footer.placeholder{
-      background: transparent; border-bottom: 1px dashed var(--line); border-top: 1px dashed var(--line);
-      color: var(--muted); text-align:center; padding:10px
-    }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CVU 2026 Partner Journey — Cohesive Ecosystem</title>
+<meta name="description" content="A cohesive, scroll-based partner journey that connects CVU’s four engagement levels with clear CTAs, images, and a comparison matrix." />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* CVU brand */
+    --bg:#171717; --ink:#FCFCFC; --accent:#B4EB17; --accent-ink:#171717;
 
-    /* Hero */
-    .hero{padding-block:clamp(80px,12vw,160px); position:relative; overflow:hidden}
-    .hero .bg{
-      position:absolute; inset:-10% -10% auto -10%; height:120%;
-      background: radial-gradient(500px 300px at 20% 10%, rgba(46,166,255,.25), transparent 60%),
-                  radial-gradient(600px 400px at 80% 20%, rgba(108,229,177,.18), transparent 60%);
-      filter: blur(30px);
-      pointer-events:none;
-    }
-    .hero h1{font-size:clamp(28px,5vw,56px); line-height:1.05; margin:0 0 12px}
-    .hero p.lead{font-size:clamp(16px,2.2vw,20px); color:var(--muted); max-width:60ch; margin:0 0 28px}
-    .cta-row{display:flex; gap:14px; flex-wrap:wrap}
-    .btn{
-      display:inline-flex; align-items:center; gap:10px;
-      padding:12px 18px; background:var(--accent); color:#001019; border:none;
-      border-radius:10px; font-weight:700; cursor:pointer; box-shadow: var(--shadow);
-    }
-    .btn.secondary{background:transparent; color:var(--ink); outline:1px solid var(--line)}
-    .btn:focus-visible{outline:3px solid var(--focus); outline-offset:2px; border-radius:12px}
-    .subtle{color:var(--muted)}
+    /* UI */
+    --line: rgba(252,252,252,.12);
+    --muted: rgba(252,252,252,.74);
+    --panel:#1e1e1e; --card:#1a1a1a;
+    --shadow: 0 10px 30px rgba(0,0,0,.35);
+    --focus:#ffe08a;
+    --radius:14px; --radius-lg:20px;
+    --pad: clamp(16px, 2.5vw, 28px);
+    --maxw: 1200px;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    font-family: Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji",sans-serif;
+    background:var(--bg); color:var(--ink); margin:0; line-height:1.5;
+    -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+  }
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:var(--maxw); margin-inline:auto; padding-inline:var(--pad)}
+  .section{padding-block:clamp(56px,8vw,100px); border-top:1px solid var(--line)}
+  .subtle{color:var(--muted)}
+  .pill{display:inline-block; font-size:12px; border:1px solid var(--line); padding:6px 10px; border-radius:999px; color:var(--muted)}
+  .btn{display:inline-flex; align-items:center; gap:10px; padding:12px 18px; background:var(--accent); color:var(--accent-ink);
+       border:none; border-radius:10px; font-weight:800; cursor:pointer; box-shadow:var(--shadow)}
+  .btn.secondary{background:transparent; color:var(--ink); outline:1px solid var(--line)}
+  .btn:focus-visible{outline:3px solid var(--focus); outline-offset:2px; border-radius:12px}
 
-    /* Stage headers */
-    .stage-head{display:flex; justify-content:space-between; align-items:end; gap:16px; margin-bottom:22px}
-    .stage-eyebrow{font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--accent-2); font-weight:800}
-    .stage-title{font-size:clamp(22px,3.2vw,36px); margin:6px 0 0}
-    .stage-intro{color:var(--muted); max-width:70ch}
+  header.placeholder, footer.placeholder{
+    background:transparent; color:var(--muted); text-align:center; padding:8px;
+    border-bottom:1px dashed var(--line); border-top:1px dashed var(--line);
+  }
 
-    /* Cards grid */
-    .grid{display:grid; gap:18px}
-    @media (min-width:720px){ .grid.cols-2{grid-template-columns:1fr 1fr} }
-    @media (min-width:960px){ .grid.cols-3{grid-template-columns:repeat(3,1fr)} }
-    .card{
-      background: linear-gradient(180deg, var(--card), #0e1520);
-      border:1px solid var(--line);
-      border-radius: var(--radius);
-      padding: var(--pad);
-      box-shadow: var(--shadow);
-      position: relative;
-      overflow: hidden;
-    }
-    .card h3{margin:0 0 8px; font-size:clamp(16px,2.3vw,20px)}
-    .card p{margin:0 0 16px; color: var(--muted)}
-    .pill{display:inline-block; font-size:12px; border:1px solid var(--line); padding:6px 10px; border-radius:999px; color:var(--muted)}
-    .actions{display:flex; flex-wrap:wrap; gap:10px}
+  /* HERO */
+  .hero{padding-block:clamp(64px,9vw,120px)}
+  .hero h1{font-size:clamp(28px,4.8vw,52px); line-height:1.05; margin:0 0 10px}
+  .hero p{max-width:68ch; color:var(--muted); margin:0 0 18px}
+  .hero .cta-row{display:flex; gap:12px; flex-wrap:wrap}
 
-    /* Tiers slider substitute (static cards) */
-    .tiers{display:grid; gap:12px}
-    @media (min-width:860px){ .tiers{grid-template-columns:repeat(6,1fr)} }
-    .tier{background:#0c141e;border:1px solid var(--line);border-radius:12px;padding:12px}
-    .tier strong{display:block;margin-bottom:6px}
+  /* HERO image strip (action-supporting visuals) */
+  .hero-strip{display:grid; grid-template-columns:repeat(6,1fr); gap:8px; margin-top:18px}
+  .tile{
+    position:relative; border:1px solid var(--line); border-radius:10px; overflow:hidden; background:#101010;
+    min-height:72px;
+  }
+  .tile img{width:100%; height:100%; object-fit:cover; display:block}
+  .tile .cap{position:absolute; inset:auto 0 0 0; background:linear-gradient(180deg, transparent, rgba(0,0,0,.55)); padding:8px 10px; font-size:12px}
 
-    /* Sticky CTA band */
-    .sticky-cta{
-      position:sticky; bottom:0; z-index:40; backdrop-filter:saturate(140%) blur(8px);
-      background: linear-gradient(180deg, rgba(17,25,36,.7), rgba(11,15,20,.9));
-      border-top:1px solid var(--line);
-    }
-    .sticky-inner{max-width:var(--maxw); margin-inline:auto; padding:12px var(--pad);
-      display:flex; gap:14px; align-items:center; justify-content:space-between; flex-wrap:wrap}
-    .sticky-inner p{margin:0; color:var(--muted)}
+  /* ECOSYSTEM RIBBON */
+  .ecosystem{
+    position:sticky; top:0; z-index:50; background:rgba(23,23,23,.9); backdrop-filter:saturate(130%) blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .eco-wrap{max-width:var(--maxw); margin-inline:auto; padding:10px var(--pad); display:grid; gap:10px}
+  .eco-steps{display:grid; grid-template-columns:repeat(4,1fr); gap:8px}
+  .eco-step{
+    display:flex; align-items:center; gap:8px; padding:10px; border:1px solid var(--line); border-radius:999px;
+    background:#1a1a1a; color:var(--muted); font-weight:700; justify-content:center;
+  }
+  .eco-step .dot{width:10px; height:10px; border-radius:50%; background:var(--line)}
+  .eco-step.active{color:var(--accent-ink); background:var(--accent); border-color:var(--accent)}
+  .eco-step.active .dot{background:#0f1b0a}
+  .eco-cta{display:flex; justify-content:flex-end}
+  .eco-cta .btn{padding:10px 14px}
 
-    /* Reveal-on-scroll */
-    .reveal{opacity:0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease}
-    .reveal.in-view{opacity:1; transform: none}
+  /* Stage + grids */
+  .stage-head{display:flex; justify-content:space-between; align-items:end; gap:16px; margin-bottom:14px}
+  .stage-eyebrow{font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-weight:800}
+  .stage-title{font-size:clamp(22px,3.2vw,34px); margin:6px 0 0}
+  .stage-intro{color:var(--muted); max-width:70ch}
 
-    /* Modal (wizard) */
-    .modal-backdrop{
-      position:fixed; inset:0; background:rgba(0,0,0,.6); display:none; align-items:center; justify-content:center; padding:20px
-    }
-    .modal{width:min(940px, 100%); background:#0c141e; border:1px solid var(--line); border-radius:var(--radius-lg);
-      box-shadow: var(--shadow); max-height:85vh; overflow:auto}
-    .modal header{display:flex; align-items:center; justify-content:space-between; padding:16px var(--pad); border-bottom:1px solid var(--line)}
-    .modal .body{padding:var(--pad)}
-    .modal .grid-mini{display:grid; gap:12px}
-    @media (min-width:740px){ .modal .grid-mini{grid-template-columns:repeat(2,1fr)} }
-    .chip{
-      display:inline-flex; align-items:center; gap:8px; border:1px solid var(--line); padding:8px 12px; border-radius:999px; color:var(--ink);
-      cursor:pointer; user-select:none
-    }
-    .chip input{appearance:none;width:14px;height:14px;border:2px solid var(--muted);border-radius:50%}
-    .chip input:checked{border-color:var(--accent); background:var(--accent)}
-    .x{background:transparent;border:1px solid var(--line);color:var(--muted);border-radius:8px;padding:8px 10px;cursor:pointer}
-    .x:hover{color:var(--ink)}
+  .grid{display:grid; gap:16px}
+  @media (min-width:720px){ .grid.cols-2{grid-template-columns:1fr 1fr} }
+  @media (min-width:960px){ .grid.cols-3{grid-template-columns:repeat(3,1fr)} }
 
-    /* Accessibility: respect reduced motion */
-    @media (prefers-reduced-motion: reduce){
-      .reveal{transition:none}
-      html{scroll-behavior:auto}
-    }
-  </style>
+  .card{
+    background:linear-gradient(180deg, var(--card), #141414); border:1px solid var(--line);
+    border-radius:var(--radius); padding:var(--pad); box-shadow:var(--shadow); display:grid; gap:10px;
+  }
+  /* Media thumb inside cards */
+  .card-media{
+    width:100%; aspect-ratio: 16 / 9; background:#0f0f0f; border:1px solid var(--line); border-radius:10px; overflow:hidden;
+  }
+  .card-media img{width:100%; height:100%; object-fit:cover; display:block}
+  .card h3{margin:0 0 6px; font-size:clamp(16px,2.2vw,20px)}
+  .card p{margin:0 0 12px; color:var(--muted)}
+  .actions{display:flex; flex-wrap:wrap; gap:8px}
+
+  /* Sticky CTA footer */
+  .sticky-cta{position:sticky; bottom:0; z-index:40; background:rgba(23,23,23,.94); border-top:1px solid var(--line)}
+  .sticky-inner{max-width:var(--maxw); margin-inline:auto; padding:12px var(--pad); display:flex; gap:14px; align-items:center; justify-content:space-between; flex-wrap:wrap}
+  .sticky-inner p{margin:0; color:var(--muted)}
+
+  /* Reveal */
+  .reveal{opacity:0; transform:translateY(14px); transition:opacity .6s ease, transform .6s ease}
+  .reveal.in-view{opacity:1; transform:none}
+
+  /* Modals */
+  .modal-backdrop{position:fixed; inset:0; display:none; align-items:center; justify-content:center; padding:20px;
+    background:rgba(0,0,0,.6); z-index:1000; /* FIX: higher than ecosystem ribbon */ }
+  .modal{width:min(1100px,100%); background:#121212; border:1px solid var(--line); border-radius:var(--radius-lg); box-shadow:var(--shadow); max-height:85vh; overflow:auto; color:var(--ink); z-index:1001; position:relative}
+  .modal header{display:flex; align-items:center; justify-content:space-between; padding:16px var(--pad); border-bottom:1px solid var(--line)}
+  .modal .body{padding:var(--pad)}
+  .x{background:transparent; border:1px solid var(--line); color:var(--muted); border-radius:8px; padding:8px 10px; cursor:pointer}
+  .x:hover{color:var(--ink)}
+
+  .modal .grid-mini{display:grid; gap:12px}
+  @media (min-width:740px){ .modal .grid-mini{grid-template-columns:repeat(2,1fr)} }
+  .chip{display:inline-flex; align-items:center; gap:8px; border:1px solid var(--line); padding:8px 12px; border-radius:999px; color:var(--ink); cursor:pointer; user-select:none}
+  .chip input{appearance:none; width:14px; height:14px; border:2px solid var(--muted); border-radius:50%}
+  .chip input:checked{border-color:var(--accent); background:var(--accent)}
+
+  /* Matrix + tooltips */
+  .tiers-matrix{--colw:170px; width:100%; overflow:auto; border:1px solid var(--line); border-radius:12px; background:#141414}
+  .tm-grid{display:grid; grid-template-columns: minmax(220px, 1.1fr) repeat(4, minmax(var(--colw), 1fr)); align-items:stretch; border-bottom:1px solid var(--line)}
+  .tm-cell{padding:12px 14px; border-right:1px solid var(--line)}
+  .tm-head{position:sticky; top:0; z-index:2; background:#1a1a1a; font-weight:800}
+  .tm-colhead{text-align:center}
+  .tm-tier{display:flex; flex-direction:column; gap:6px; align-items:center}
+  .badge{display:inline-flex; align-items:center; gap:6px; font-size:12px; letter-spacing:.02em; background:var(--accent); color:var(--accent-ink); padding:4px 8px; border-radius:999px; font-weight:800}
+  .tm-rowhead{background:#161616; font-weight:700; display:flex; align-items:center; gap:8px}
+  .tm-check{display:flex; align-items:center; justify-content:center}
+  .tm-note{font-size:12px; color:var(--muted); margin-top:10px}
+  .icon{width:18px; height:18px; display:inline-block}
+
+  /* Tooltip */
+  .tt{position:relative; display:inline-flex; align-items:center; justify-content:center; width:18px; height:18px; border-radius:50%; border:1px solid var(--line); color:var(--muted); font-size:12px; cursor:help}
+  .tt:focus-visible{outline:2px solid var(--focus); outline-offset:2px}
+  .tt-panel{position:absolute; left:50%; top:calc(100% + 8px); transform:translateX(-50%); min-width:240px; max-width:340px;
+    background:#101010; color:var(--ink); border:1px solid var(--line); border-radius:10px; padding:10px 12px; box-shadow:var(--shadow);
+    opacity:0; pointer-events:none; transition:opacity .15s ease; z-index:3}
+  .tt[aria-expanded="true"] + .tt-panel{opacity:1; pointer-events:auto}
+
+  /* Fallback visual for missing images */
+  .fallback{
+    display:flex; align-items:center; justify-content:center; width:100%; height:100%;
+    background:repeating-linear-gradient(135deg, #0f0f0f 0 12px, #151515 12px 24px);
+    color:var(--muted); font-size:12px;
+  }
+
+  @media (max-width:740px){
+    .hero-strip{grid-template-columns:repeat(3,1fr)}
+    .tm-grid{grid-template-columns:1fr}
+    .tm-cell{border-right:none; border-bottom:1px solid var(--line)}
+    .tm-head{position:relative}
+    .tm-colhead{text-align:left}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .reveal{transition:none}
+    html{scroll-behavior:auto}
+  }
+</style>
 </head>
 <body>
 
-  <!-- HEADER PLACEHOLDER: replace with your site header when ready -->
-  <header class="placeholder" aria-label="Site header placeholder">
-    Header placeholder — your standard site header will be inserted here.
-  </header>
+<header class="placeholder" aria-label="Site header placeholder">
+  CVU header placeholder
+</header>
 
-  <!-- HERO -->
-  <section class="hero wrap" id="top" aria-labelledby="hero-title">
-    <div class="bg" aria-hidden="true"></div>
-    <h1 id="hero-title" class="reveal">Advance from Awareness to Industry Leadership</h1>
-    <p class="lead reveal" style="transition-delay:.08s">
-      Build your 2026 CVU partnership and shape the future of cities. Explore engagement options that scale from entry-level involvement to global impact.
-    </p>
-    <div class="cta-row reveal" style="transition-delay:.12s">
-      <button class="btn" data-open-wizard>
-        Start Your Journey
-        <span aria-hidden="true">→</span>
-      </button>
-      <a class="btn secondary" href="mailto:jhall@ctbuh.org?subject=CVU%202026%20Partnership%20Inquiry">Contact Global Development</a>
+<!-- HERO -->
+<section class="hero wrap" id="top" aria-labelledby="hero-title">
+  <h1 id="hero-title">Advance from Awareness to Industry Leadership</h1>
+  <p>Present CVU’s engagement ecosystem as a single, intentional journey. Choose your goal, see matching opportunities, and contact the Global Development team.</p>
+  <div class="cta-row">
+    <button class="btn" data-open-wizard>Start Your Journey →</button>
+    <a class="btn secondary" href="mailto:jhall@ctbuh.org?subject=CVU%202026%20Partnership%20Inquiry">Contact Global Development</a>
+  </div>
+</section>
+
+<!-- ECOSYSTEM RIBBON -->
+<nav class="ecosystem" aria-label="CVU engagement ecosystem">
+  <div class="eco-wrap wrap">
+    <div class="eco-steps" role="tablist">
+      <a class="eco-step" role="tab" href="#stage-1" data-step="1"><span class="dot"></span> 1 · Get Involved</a>
+      <a class="eco-step" role="tab" href="#stage-2" data-step="2"><span class="dot"></span> 2 · Amplify Expertise</a>
+      <a class="eco-step" role="tab" href="#stage-3" data-step="3"><span class="dot"></span> 3 · Shape the Conversation</a>
+      <a class="eco-step" role="tab" href="#stage-4" data-step="4"><span class="dot"></span> 4 · Drive Global Impact</a>
     </div>
-  </section>
+    <div class="eco-cta">
+      <button class="btn" data-open-wizard>Design Your Journey</button>
+    </div>
+  </div>
+</nav>
 
-  <!-- STAGE 1 -->
-  <section class="section wrap" id="stage-1" aria-labelledby="s1-title">
-    <div class="stage-head reveal">
-      <div>
-        <div class="stage-eyebrow">Stage 1 · Awareness</div>
-        <h2 id="s1-title" class="stage-title">Get Involved</h2>
+<!-- STAGE 1 -->
+<section class="section wrap" id="stage-1" aria-labelledby="s1-title">
+  <div class="stage-head reveal">
+    <div>
+      <div class="stage-eyebrow">Stage 1 · Awareness</div>
+      <h2 id="s1-title" class="stage-title">Get Involved</h2>
+    </div>
+  </div>
+  <p class="stage-intro reveal">Concise entry points. Minimal imagery. Decision-forward cards with direct actions.</p>
+
+  <div class="grid cols-3" style="margin-top:14px">
+    <article class="card reveal" id="org-membership">
+      <div class="card-media">
+        <img src="images/hero-collage.jpg" alt="Members collaborating at a CVU event" onerror="this.replaceWith(fallback())">
       </div>
-    </div>
-    <p class="stage-intro reveal">
-      Join the CVU network, access cutting-edge resources, and begin building recognition.
-    </p>
-
-    <div class="grid cols-3" style="margin-top:18px">
-      <article class="card reveal">
-        <span class="pill">Membership</span>
-        <h3>Organizational Membership</h3>
-        <p>Four tiers with scalable benefits (expert roles, visibility, events, data tools).</p>
-        <div class="actions">
-          <a class="btn secondary" href="#wizard" data-open-wizard data-choice="membership">Compare Tiers</a>
-        </div>
-      </article>
-      <article class="card reveal" style="transition-delay:.05s">
-        <span class="pill">Membership</span>
-        <h3>Individual Membership</h3>
-        <p>Professional, academic/retired, and student options with access to CVU content and community.</p>
-        <div class="actions">
-          <a class="btn secondary" href="#wizard" data-open-wizard data-choice="individual">Join Now</a>
-        </div>
-      </article>
-      <article class="card reveal" style="transition-delay:.08s">
-        <span class="pill">Publication</span>
-        <h3>Vertical Urbanism Magazine</h3>
-        <p>Explore thought leadership and case studies shaping vertical urbanism.</p>
-        <div class="actions">
-          <a class="btn secondary" href="https://store.ctbuh.org/" target="_blank" rel="noopener">Subscribe</a>
-        </div>
-      </article>
-    </div>
-
-    <div class="grid cols-2" style="margin-top:18px">
-      <article class="card reveal">
-        <span class="pill">Competitions & Research Calls</span>
-        <h3>Student Design & Research</h3>
-        <p>Enter the International Student Tall Building Design Competition or Student Research Competition.</p>
-        <div class="actions">
-          <a class="btn secondary" href="mailto:jhall@ctbuh.org?subject=Competition%20Inquiry">Explore Opportunities</a>
-        </div>
-      </article>
-      <article class="card reveal" style="transition-delay:.05s">
-        <span class="pill">Recognition</span>
-        <h3>Awards of Excellence</h3>
-        <p>Submit projects across categories to present at the international conference.</p>
-        <div class="actions">
-          <a class="btn secondary" href="https://awards.ctbuh.org/" target="_blank" rel="noopener">Submit Your Project</a>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <!-- STAGE 2 -->
-  <section class="section wrap" id="stage-2" aria-labelledby="s2-title">
-    <div class="stage-head reveal">
-      <div>
-        <div class="stage-eyebrow">Stage 2 · Recognition</div>
-        <h2 id="s2-title" class="stage-title">Amplify Expertise Globally</h2>
+      <h3>Organizational Membership</h3>
+      <p>Four tiers with scalable benefits (experts, visibility, events, data tools).</p>
+      <div class="actions">
+        <button class="btn secondary" data-open-tiers>Compare Tiers</button>
+        <a class="btn" href="mailto:jhall@ctbuh.org?subject=CVU%20Organizational%20Membership">Talk to Membership</a>
       </div>
-    </div>
-    <p class="stage-intro reveal">
-      Elevate your profile through sponsorships, conferences, and strategic visibility.
-    </p>
+    </article>
 
-    <div class="grid cols-3" style="margin-top:18px">
-      <article class="card reveal">
-        <span class="pill">Events</span>
-        <h3>Global & Regional Conferences</h3>
-        <p>Showcase your brand at the Global Summit and regional conferences.</p>
-        <div class="tiers" aria-label="Sample sponsorship tiers">
-          <div class="tier"><strong>Exhibitor</strong><span class="subtle">Entry exposure</span></div>
-          <div class="tier"><strong>Bronze</strong><span class="subtle">Core access</span></div>
-          <div class="tier"><strong>Silver</strong><span class="subtle">Elevated placement</span></div>
-          <div class="tier"><strong>Gold</strong><span class="subtle">Presentation slot</span></div>
-          <div class="tier"><strong>Platinum</strong><span class="subtle">VIP + prime</span></div>
-          <div class="tier"><strong>Diamond</strong><span class="subtle">Flagship</span></div>
-        </div>
-        <div class="actions" style="margin-top:12px">
-          <button class="btn" data-open-wizard data-choice="sponsorship">View Sponsorship Levels</button>
-        </div>
-      </article>
-
-      <article class="card reveal" style="transition-delay:.05s">
-        <span class="pill">Talent</span>
-        <h3>Sponsor Student Programs</h3>
-        <p>Support the Traveling Studio, Design Competition, Student Research, or Seed Funding.</p>
-        <div class="actions">
-          <a class="btn secondary" href="mailto:jhall@ctbuh.org?subject=Student%20Program%20Sponsorship">Sponsor a Program</a>
-        </div>
-      </article>
-
-      <article class="card reveal" style="transition-delay:.08s">
-        <span class="pill">Recognition</span>
-        <h3>Building of Distinction</h3>
-        <p>Nominate your landmark project for on-site recognition and global coverage.</p>
-        <div class="actions">
-          <a class="btn secondary" href="mailto:jhall@ctbuh.org?subject=Building%20of%20Distinction">Nominate Your Building</a>
-        </div>
-      </article>
-    </div>
-
-    <div class="grid cols-1" style="margin-top:18px">
-      <article class="card reveal">
-        <span class="pill">Publication</span>
-        <h3>Advertise in Vertical Urbanism</h3>
-        <p>Reach a global cross-disciplinary audience of decision-makers.</p>
-        <div class="actions">
-          <a class="btn secondary" href="mailto:jhall@ctbuh.org?subject=Vertical%20Urbanism%20Advertising">Book an Ad</a>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <!-- STAGE 3 -->
-  <section class="section wrap" id="stage-3" aria-labelledby="s3-title">
-    <div class="stage-head reveal">
-      <div>
-        <div class="stage-eyebrow">Stage 3 · Leadership</div>
-        <h2 id="s3-title" class="stage-title">Shape the Conversation</h2>
+    <article class="card reveal">
+      <div class="card-media">
+        <img src="images/vu-cover.jpg" alt="Vertical Urbanism cover" onerror="this.replaceWith(fallback())">
       </div>
-    </div>
-    <p class="stage-intro reveal">
-      Co-create research, data, and publications that influence global dialogue.
-    </p>
-
-    <div class="grid cols-3" style="margin-top:18px">
-      <article class="card reveal">
-        <span class="pill">Programs</span>
-        <h3>Strategic Program Partnerships</h3>
-        <p>City Advocacy Forum · Sustainability Initiative · Tall + Urban Innovation.</p>
-        <div class="actions">
-          <button class="btn" data-open-wizard data-choice="programs">View Partner Levels</button>
-        </div>
-      </article>
-
-      <article class="card reveal" style="transition-delay:.05s">
-        <span class="pill">White Papers</span>
-        <h3>Commission a White Paper</h3>
-        <p>Co-branded, graphically rich reports with actionable insights.</p>
-        <div class="actions">
-          <a class="btn secondary" href="mailto:jhall@ctbuh.org?subject=White%20Paper%20Commission">Discuss a Topic</a>
-        </div>
-      </article>
-
-      <article class="card reveal" style="transition-delay:.08s">
-        <span class="pill">Publications</span>
-        <h3>Commission an <em>In Detail</em> Volume</h3>
-        <p>Document your project in a rigorous, visually rich monograph.</p>
-        <div class="actions">
-          <a class="btn secondary" href="mailto:jhall@ctbuh.org?subject=In%20Detail%20Commission">Commission Your Book</a>
-        </div>
-      </article>
-    </div>
-
-    <div class="grid cols-1" style="margin-top:18px">
-      <article class="card reveal">
-        <span class="pill">Data</span>
-        <h3>Interactive Data Studies</h3>
-        <p>Translate complex urban data into decision-ready interactive maps and charts.</p>
-        <div class="actions">
-          <a class="btn secondary" href="mailto:jhall@ctbuh.org?subject=Interactive%20Data%20Study%20Proposal">Launch a Data Study</a>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <!-- STAGE 4 -->
-  <section class="section wrap" id="stage-4" aria-labelledby="s4-title">
-    <div class="stage-head reveal">
-      <div>
-        <div class="stage-eyebrow">Stage 4 · Legacy</div>
-        <h2 id="s4-title" class="stage-title">Drive Global Impact</h2>
+      <h3>Individual Membership</h3>
+      <p>Professional, academic/retired, and student options with community access.</p>
+      <div class="actions">
+        <a class="btn secondary" href="mailto:jhall@ctbuh.org?subject=Join%20CVU%20Individual%20Membership">Join Now</a>
       </div>
-    </div>
-    <p class="stage-intro reveal">Define standards and long-term research that shape industry practice.</p>
+    </article>
 
-    <div class="grid cols-2" style="margin-top:18px">
-      <article class="card reveal">
-        <span class="pill">Standards</span>
-        <h3>Co-branded Technical Guides</h3>
-        <p>Practice-ready references developed with expert working groups and CVU Research.</p>
-        <div class="actions">
-          <a class="btn secondary" href="mailto:jhall@ctbuh.org?subject=Technical%20Guide%20Underwriting">Underwrite a Guide</a>
-        </div>
-      </article>
-      <article class="card reveal" style="transition-delay:.05s">
-        <span class="pill">Research</span>
-        <h3>Long-Term Research Initiatives</h3>
-        <p>Multi-year scope, steering committee, validation, and global dissemination.</p>
-        <div class="actions">
-          <a class="btn secondary" href="mailto:jhall@ctbuh.org?subject=Long-Term%20Research%20Topic">Propose a Research Topic</a>
-        </div>
-      </article>
-    </div>
-  </section>
+    <article class="card reveal">
+      <div class="card-media">
+        <img src="images/vu-cover.jpg" alt="Vertical Urbanism magazine" onerror="this.replaceWith(fallback())">
+      </div>
+      <h3><em>Vertical Urbanism</em> Magazine</h3>
+      <p>Subscribe for digital access to insights and case studies.</p>
+      <div class="actions">
+        <a class="btn secondary" target="_blank" rel="noopener" href="https://store.ctbuh.org/">Subscribe</a>
+      </div>
+    </article>
+  </div>
 
-  <!-- Sticky CTA -->
-  <div class="sticky-cta" role="region" aria-label="Sticky call to action">
-    <div class="sticky-inner">
-      <p>Design your 2026 CVU partnership journey.</p>
-      <div class="cta-row">
-        <button class="btn" data-open-wizard>Start Here</button>
-        <a class="btn secondary" href="mailto:jhall@ctbuh.org?subject=CVU%202026%20Partnership%20Inquiry">Email Our Team</a>
+  <div class="grid cols-2" style="margin-top:14px">
+    <article class="card reveal">
+      <div class="card-media">
+        <img src="images/data-study.jpg" alt="Student design visual" onerror="this.replaceWith(fallback())">
+      </div>
+      <h3>Student Design & Research</h3>
+      <p>Enter the International Student Design Competition or Student Research Competition.</p>
+      <div class="actions">
+        <a class="btn secondary" href="mailto:jhall@ctbuh.org?subject=Competition%20Inquiry">Explore Opportunities</a>
+      </div>
+    </article>
+
+    <article class="card reveal">
+      <div class="card-media">
+        <img src="images/building-distinction.jpg" alt="Awards ceremony" onerror="this.replaceWith(fallback())">
+      </div>
+      <h3>Awards of Excellence</h3>
+      <p>Submit projects to present at the international conference.</p>
+      <div class="actions">
+        <a class="btn secondary" target="_blank" rel="noopener" href="https://awards.ctbuh.org/">Submit Your Project</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- STAGE 2 -->
+<section class="section wrap" id="stage-2" aria-labelledby="s2-title">
+  <div class="stage-head reveal">
+    <div>
+      <div class="stage-eyebrow">Stage 2 · Recognition</div>
+      <h2 id="s2-title" class="stage-title">Amplify Expertise Globally</h2>
+    </div>
+  </div>
+  <p class="stage-intro reveal">Spotlight tangible actions: sponsor, nominate, advertise. No decorative carousels.</p>
+
+  <div class="grid cols-3" style="margin-top:14px">
+    <article class="card reveal">
+      <div class="card-media">
+        <img src="images/conference.jpg" alt="Global conference hall with sponsors" onerror="this.replaceWith(fallback())">
+      </div>
+      <h3>Global & Regional Conferences</h3>
+      <p>Showcase your brand at the Global Summit and regionals.</p>
+      <div class="actions">
+        <button class="btn" data-open-wizard data-choice="sponsorship">View Sponsorship Levels</button>
+      </div>
+    </article>
+
+    <article class="card reveal">
+      <div class="card-media">
+        <img src="images/hero-collage.jpg" alt="Students working in studio" onerror="this.replaceWith(fallback())">
+      </div>
+      <h3>Sponsor Student Programs</h3>
+      <p>Support the Traveling Studio, Design Competition, Student Research, or Seed Funding.</p>
+      <div class="actions">
+        <a class="btn secondary" href="mailto:jhall@ctbuh.org?subject=Student%20Program%20Sponsorship">Sponsor a Program</a>
+      </div>
+    </article>
+
+    <article class="card reveal">
+      <div class="card-media">
+        <img src="images/building-distinction.jpg" alt="Building of Distinction plaque on site" onerror="this.replaceWith(fallback())">
+      </div>
+      <h3>Building of Distinction</h3>
+      <p>Nominate your landmark project for on-site recognition and global coverage.</p>
+      <div class="actions">
+        <a class="btn secondary" href="mailto:jhall@ctbuh.org?subject=Building%20of%20Distinction">Nominate Your Building</a>
+      </div>
+    </article>
+  </div>
+
+  <div class="grid cols-1" style="margin-top:14px">
+    <article class="card reveal">
+      <div class="card-media">
+        <img src="images/vu-cover.jpg" alt="Vertical Urbanism magazine ad spread" onerror="this.replaceWith(fallback())">
+      </div>
+      <h3>Advertise in <em>Vertical Urbanism</em></h3>
+      <p>Reach a global cross-disciplinary audience of decision-makers.</p>
+      <div class="actions">
+        <a class="btn secondary" href="mailto:jhall@ctbuh.org?subject=Vertical%20Urbanism%20Advertising">Book an Ad</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- STAGE 3 -->
+<section class="section wrap" id="stage-3" aria-labelledby="s3-title">
+  <div class="stage-head reveal">
+    <div>
+      <div class="stage-eyebrow">Stage 3 · Leadership</div>
+      <h2 id="s3-title" class="stage-title">Shape the Conversation</h2>
+    </div>
+  </div>
+  <p class="stage-intro reveal">Lead thought and policy through programs, publications, and data.</p>
+
+  <div class="grid cols-3" style="margin-top:14px">
+    <article class="card reveal">
+      <div class="card-media">
+        <img src="images/hero-collage.jpg" alt="Roundtable discussion" onerror="this.replaceWith(fallback())">
+      </div>
+      <h3>Strategic Program Partnerships</h3>
+      <p>City Advocacy Forum · Sustainability Initiative · Tall + Urban Innovation.</p>
+      <div class="actions">
+        <button class="btn" data-open-wizard data-choice="programs">View Partner Levels</button>
+      </div>
+    </article>
+
+    <article class="card reveal">
+      <div class="card-media">
+        <img src="images/in-detail.jpg" alt="White paper layout on table" onerror="this.replaceWith(fallback())">
+      </div>
+      <h3>Commission a White Paper</h3>
+      <p>Authoritative, co-branded research with global reach.</p>
+      <div class="actions">
+        <a class="btn secondary" href="mailto:jhall@ctbuh.org?subject=White%20Paper%20Commission">Discuss a Topic</a>
+      </div>
+    </article>
+
+    <article class="card reveal">
+      <div class="card-media">
+        <img src="images/in-detail.jpg" alt="In Detail publication spread" onerror="this.replaceWith(fallback())">
+      </div>
+      <h3>Commission an <em>In Detail</em> Volume</h3>
+      <p>Document your project in a rigorous, visual monograph.</p>
+      <div class="actions">
+        <a class="btn secondary" href="mailto:jhall@ctbuh.org?subject=In%20Detail%20Commission">Commission Your Book</a>
+      </div>
+    </article>
+  </div>
+
+  <div class="grid cols-1" style="margin-top:14px">
+    <article class="card reveal">
+      <div class="card-media">
+        <img src="images/data-study.jpg" alt="Interactive data map screen" onerror="this.replaceWith(fallback())">
+      </div>
+      <h3>Interactive Data Studies</h3>
+      <p>StoryMap-style analytics that support decisions and policy briefs.</p>
+      <div class="actions">
+        <a class="btn secondary" href="mailto:jhall@ctbuh.org?subject=Interactive%20Data%20Study%20Proposal">Launch a Data Study</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- STAGE 4 -->
+<section class="section wrap" id="stage-4" aria-labelledby="s4-title">
+  <div class="stage-head reveal">
+    <div>
+      <div class="stage-eyebrow">Stage 4 · Legacy</div>
+      <h2 id="s4-title" class="stage-title">Drive Global Impact</h2>
+    </div>
+  </div>
+  <p class="stage-intro reveal">Define standards and long-term research that shape practice.</p>
+
+  <div class="grid cols-2" style="margin-top:14px">
+    <article class="card reveal">
+      <div class="card-media">
+        <img src="images/technical-guide.jpg" alt="Technical guide cover stack" onerror="this.replaceWith(fallback())">
+      </div>
+      <h3>Co-branded Technical Guides</h3>
+      <p>Practice-ready references developed with expert working groups and CVU Research.</p>
+      <div class="actions">
+        <a class="btn secondary" href="mailto:jhall@ctbuh.org?subject=Technical%20Guide%20Underwriting">Underwrite a Guide</a>
+      </div>
+    </article>
+    <article class="card reveal">
+      <div class="card-media">
+        <img src="images/hero-collage.jpg" alt="Research timeline boards" onerror="this.replaceWith(fallback())">
+      </div>
+      <h3>Long-Term Research Initiatives</h3>
+      <p>Multi-year scope, steering committee, validation, global dissemination.</p>
+      <div class="actions">
+        <a class="btn secondary" href="mailto:jhall@ctbuh.org?subject=Long-Term%20Research%20Topic">Propose a Research Topic</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- Sticky CTA -->
+<div class="sticky-cta" role="region" aria-label="Sticky call to action">
+  <div class="sticky-inner">
+    <p>Ready to map your journey?</p>
+    <div class="cta-row">
+      <button class="btn" data-open-wizard>Start Here</button>
+      <a class="btn secondary" href="mailto:jhall@ctbuh.org?subject=CVU%202026%20Partnership%20Inquiry">Email Our Team</a>
+    </div>
+  </div>
+</div>
+
+<footer class="placeholder" aria-label="Site footer placeholder">
+  CVU footer placeholder
+</footer>
+
+<!-- Journey Wizard -->
+<div class="modal-backdrop" id="wizard" aria-hidden="true" role="dialog" aria-labelledby="wizard-title">
+  <div class="modal" role="document">
+    <header>
+      <h3 id="wizard-title">Design Your CVU Journey</h3>
+      <button class="x" data-close-modal aria-label="Close wizard">Close</button>
+    </header>
+    <div class="body">
+      <p class="subtle" style="margin-top:0">Pick your primary goal to see suggested options. Mix & match anytime.</p>
+      <div class="grid-mini" style="margin-top:12px">
+        <label class="chip"><input type="radio" name="goal" value="awareness" /> Awareness · Get Involved</label>
+        <label class="chip"><input type="radio" name="goal" value="recognition" /> Recognition · Amplify Expertise</label>
+        <label class="chip"><input type="radio" name="goal" value="leadership" /> Leadership · Shape the Conversation</label>
+        <label class="chip"><input type="radio" name="goal" value="legacy" /> Legacy · Drive Global Impact</label>
+      </div>
+      <div id="suggestions" style="margin-top:18px" aria-live="polite"></div>
+      <div class="actions" style="margin-top:18px">
+        <a class="btn" href="mailto:jhall@ctbuh.org?subject=CVU%202026%20Partnership%20Consultation">Request a Consultation</a>
+        <button class="btn secondary" data-close-modal>Done</button>
       </div>
     </div>
   </div>
+</div>
 
-  <!-- FOOTER PLACEHOLDER -->
-  <footer class="placeholder" aria-label="Site footer placeholder">
-    Footer placeholder — your standard site footer will be inserted here.
-  </footer>
+<!-- Tiers Modal (Matrix + Tooltips) -->
+<div class="modal-backdrop" id="tiers-modal" aria-hidden="true" role="dialog" aria-labelledby="tiers-title">
+  <div class="modal" role="document">
+    <header>
+      <h3 id="tiers-title">Organizational Membership — Tier Comparison</h3>
+      <button class="x" data-close-tiers aria-label="Close tiers">Close</button>
+    </header>
+    <div class="body">
+      <p class="subtle" style="margin-top:0">Compare benefits and annual dues. Choose the level that fits your goals.</p>
 
-  <!-- Journey Wizard Modal -->
-  <div class="modal-backdrop" id="wizard" aria-hidden="true" role="dialog" aria-labelledby="wizard-title">
-    <div class="modal" role="document">
-      <header>
-        <h3 id="wizard-title">Design Your CVU Journey</h3>
-        <button class="x" data-close-modal aria-label="Close wizard">Close</button>
-      </header>
-      <div class="body">
-        <p class="subtle" style="margin-top:0">Pick your primary goal to see suggested options. You can mix and match anytime.</p>
-
-        <div class="grid-mini" style="margin-top:12px">
-          <label class="chip"><input type="radio" name="goal" value="awareness" /> Awareness · Get Involved</label>
-          <label class="chip"><input type="radio" name="goal" value="recognition" /> Recognition · Amplify Expertise</label>
-          <label class="chip"><input type="radio" name="goal" value="leadership" /> Leadership · Shape the Conversation</label>
-          <label class="chip"><input type="radio" name="goal" value="legacy" /> Legacy · Drive Global Impact</label>
+      <div class="tiers-matrix" role="table" aria-label="Organizational membership feature comparison">
+        <div class="tm-grid tm-head" role="row">
+          <div class="tm-cell tm-rowhead" role="columnheader">Feature</div>
+          <div class="tm-cell tm-colhead" role="columnheader"><div class="tm-tier"><div>Platinum</div><div class="badge">US$10,000</div></div></div>
+          <div class="tm-cell tm-colhead" role="columnheader"><div class="tm-tier"><div>Gold</div><div class="badge">US$5,000</div></div></div>
+          <div class="tm-cell tm-colhead" role="columnheader"><div class="tm-tier"><div>Silver</div><div class="badge">US$1,000</div></div></div>
+          <div class="tm-cell tm-colhead" role="columnheader"><div class="tm-tier"><div>Nonprofit/Gov’t</div><div class="badge">US$500</div></div></div>
         </div>
 
-        <div id="suggestions" style="margin-top:18px" aria-live="polite"></div>
-
-        <div class="actions" style="margin-top:18px">
-          <a class="btn" href="mailto:jhall@ctbuh.org?subject=CVU%202026%20Partnership%20Consultation">Request a Consultation</a>
-          <button class="btn secondary" data-close-modal>Done</button>
+        <!-- Rows (with tooltips) -->
+        <div class="tm-grid" role="row">
+          <div class="tm-cell tm-rowhead" role="rowheader">
+            Designated Experts
+            <button class="tt" aria-expanded="false" aria-controls="tt-experts" aria-label="More about Designated Experts">i</button>
+            <div class="tt-panel" id="tt-experts" role="tooltip">Named staff with elevated access/roles (speaker eligibility, data tools, program participation). Higher tiers allow more experts.</div>
+          </div>
+          <div class="tm-cell tm-check" role="cell"><strong>Unlimited</strong></div>
+          <div class="tm-cell tm-check" role="cell"><strong>Up to 5</strong></div>
+          <div class="tm-cell tm-check" role="cell"><span class="subtle">Included</span></div>
+          <div class="tm-cell tm-check" role="cell"><span class="subtle">Included</span></div>
         </div>
+
+        <div class="tm-grid" role="row">
+          <div class="tm-cell tm-rowhead" role="rowheader">
+            Brand visibility on CVU.org
+            <button class="tt" aria-expanded="false" aria-controls="tt-visibility" aria-label="More about visibility">i</button>
+            <div class="tt-panel" id="tt-visibility" role="tooltip">Logo placement on partner + program pages; Enhanced = larger/priority placement.</div>
+          </div>
+          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg> <span class="subtle">Enhanced</span></div>
+          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg></div>
+          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg></div>
+          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg></div>
+        </div>
+
+        <div class="tm-grid" role="row">
+          <div class="tm-cell tm-rowhead" role="rowheader">
+            Advanced data tools & queries
+            <button class="tt" aria-expanded="false" aria-controls="tt-data" aria-label="More about data tools">i</button>
+            <div class="tt-panel" id="tt-data" role="tooltip">Priority support for custom queries and enhanced access to datasets used in CVU research and visuals.</div>
+          </div>
+          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg> <span class="subtle">Priority</span></div>
+          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg></div>
+          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg></div>
+          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg></div>
+        </div>
+
+        <div class="tm-grid" role="row">
+          <div class="tm-cell tm-rowhead" role="rowheader">
+            Events: complimentary & discounted registrations
+            <button class="tt" aria-expanded="false" aria-controls="tt-events" aria-label="More about events benefits">i</button>
+            <div class="tt-panel" id="tt-events" role="tooltip">Complimentary passes and tiered discounts for CVU conferences and select programs. Higher tiers get more.</div>
+          </div>
+          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg> <span class="subtle">Highest</span></div>
+          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg></div>
+          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg></div>
+          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg></div>
+        </div>
+
+        <div class="tm-grid" role="row">
+          <div class="tm-cell tm-rowhead" role="rowheader">
+            Speaking & presentation opportunities
+            <button class="tt" aria-expanded="false" aria-controls="tt-speaking" aria-label="More about speaking">i</button>
+            <div class="tt-panel" id="tt-speaking" role="tooltip">Eligibility for plenaries, panels, and workshops increases by tier and relevance to program themes.</div>
+          </div>
+          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg> <span class="subtle">Priority</span></div>
+          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg></div>
+          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg></div>
+          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg></div>
+        </div>
+
+        <div class="tm-grid" role="row">
+          <div class="tm-cell tm-rowhead" role="rowheader">
+            Awards of Excellence eligibility
+            <button class="tt" aria-expanded="false" aria-controls="tt-awards" aria-label="More about awards">i</button>
+            <div class="tt-panel" id="tt-awards" role="tooltip">Eligibility to submit projects for global recognition; does not guarantee award selection.</div>
+          </div>
+          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg></div>
+          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg></div>
+          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg></div>
+          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg></div>
+        </div>
+
+        <div class="tm-grid" role="row">
+          <div class="tm-cell tm-rowhead" role="rowheader">
+            Leadership & committees eligibility
+            <button class="tt" aria-expanded="false" aria-controls="tt-lead" aria-label="More about leadership">i</button>
+            <div class="tt-panel" id="tt-lead" role="tooltip">Invitations to steering committees, juries, and advisory roles scale with tier and expertise.</div>
+          </div>
+          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg> <span class="subtle">Highest</span></div>
+          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg></div>
+          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg></div>
+          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg></div>
+        </div>
+
+        <div class="tm-grid" role="row">
+          <div class="tm-cell tm-rowhead" role="rowheader">
+            Regional presence (country/city pages)
+            <button class="tt" aria-expanded="false" aria-controls="tt-regional" aria-label="More about regional presence">i</button>
+            <div class="tt-panel" id="tt-regional" role="tooltip">Visibility on regional pages and city nodes within CVU’s network where applicable.</div>
+          </div>
+          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg></div>
+          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg></div>
+          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg></div>
+          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg></div>
+        </div>
+
+        <div class="tm-grid" role="row">
+          <div class="tm-cell tm-rowhead" role="rowheader">
+            Member value (journal, discounts)
+            <button class="tt" aria-expanded="false" aria-controls="tt-value" aria-label="More about member value">i</button>
+            <div class="tt-panel" id="tt-value" role="tooltip">Access to publications, discounts on events, and network benefits across programs.</div>
+          </div>
+          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg></div>
+          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg></div>
+          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg></div>
+          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg></div>
+        </div>
+      </div>
+
+      <p class="tm-note">Notes: All tiers include core benefits; higher tiers increase visibility and access. Tooltips explain each feature in context.</p>
+
+      <div class="actions" style="margin-top:16px">
+        <a class="btn" href="mailto:jhall@ctbuh.org?subject=CVU%20Organizational%20Membership">Talk to Membership</a>
+        <button class="btn secondary" data-close-tiers>Close</button>
       </div>
     </div>
   </div>
+</div>
 
-  <script>
-    // Smooth scroll for browsers that don't default to it
-    (function(){
-      if (!('scrollBehavior' in document.documentElement.style)) {
-        document.querySelectorAll('a[href^="#"]').forEach(a=>{
-          a.addEventListener('click', function(e){
-            const id = this.getAttribute('href').slice(1);
-            const el = document.getElementById(id);
-            if(el){ e.preventDefault(); window.scrollTo(0, el.getBoundingClientRect().top + window.pageYOffset - 10); }
-          });
-        });
-      }
-    })();
+<script>
+  // Fallback node for missing images
+  function fallback(){
+    const f=document.createElement('div'); f.className='fallback'; f.textContent='Image placeholder'; return f;
+  }
 
-    // Reveal on scroll with IntersectionObserver
-    (function(){
-      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (prefersReduced) {
-        document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in-view'));
-        return;
-      }
-      const io = new IntersectionObserver((entries)=>{
-        entries.forEach(entry=>{
-          if(entry.isIntersecting){
-            entry.target.classList.add('in-view');
-            io.unobserve(entry.target);
-          }
-        });
-      }, {threshold: 0.15});
-      document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-    })();
+  // Reveal on scroll
+  (function(){
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) { document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in-view')); return; }
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{ if(entry.isIntersecting){ entry.target.classList.add('in-view'); io.unobserve(entry.target); }});
+    },{threshold:.15});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  })();
 
-    // Modal / Wizard logic
-    (function(){
-      const modal = document.getElementById('wizard');
-      const openers = document.querySelectorAll('[data-open-wizard]');
-      const closers = modal.querySelectorAll('[data-close-modal]');
-      const suggestions = document.getElementById('suggestions');
-      const goalCopy = {
-        awareness: {
-          title: 'Recommended for Awareness',
-          items: [
-            {label:'Organizational Membership', href:'#stage-1'},
-            {label:'Individual Membership', href:'#stage-1'},
-            {label:'Vertical Urbanism Subscription', href:'#stage-1'},
-            {label:'Competitions & Student Research', href:'#stage-1'},
-            {label:'Awards of Excellence', href:'#stage-1'}
-          ]
-        },
-        recognition: {
-          title: 'Recommended for Recognition',
-          items: [
-            {label:'Sponsor Global/Regional Conferences', href:'#stage-2'},
-            {label:'Sponsor Student Programs', href:'#stage-2'},
-            {label:'Building of Distinction', href:'#stage-2'},
-            {label:'Advertise in Vertical Urbanism', href:'#stage-2'}
-          ]
-        },
-        leadership: {
-          title: 'Recommended for Leadership',
-          items: [
-            {label:'Strategic Program Partnerships', href:'#stage-3'},
-            {label:'Commission a White Paper', href:'#stage-3'},
-            {label:'Commission an In Detail Volume', href:'#stage-3'},
-            {label:'Interactive Data Studies', href:'#stage-3'}
-          ]
-        },
-        legacy: {
-          title: 'Recommended for Legacy',
-          items: [
-            {label:'Co-branded Technical Guides', href:'#stage-4'},
-            {label:'Long-Term Research Initiatives', href:'#stage-4'}
-          ]
-        }
-      };
+  // Modal helpers
+  function openBackdrop(el){ el.style.display='flex'; el.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; }
+  function closeBackdrop(el){ el.style.display='none'; el.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }
 
-      function renderSuggestions(key){
-        if(!goalCopy[key]){ suggestions.innerHTML=''; return; }
-        const {title, items} = goalCopy[key];
-        suggestions.innerHTML =
-          `<h4 style="margin:0 0 8px">${title}</h4>
-           <ul style="list-style:none; padding:0; margin:0; display:grid; gap:10px">
-            ${items.map(i=>`
-              <li style="border:1px solid var(--line); border-radius:10px; padding:12px; background:#0b121b">
-                <a class="btn secondary" href="${i.href}" data-close-modal>${i.label}</a>
-              </li>
-            `).join('')}
-           </ul>`;
-      }
-
-      openers.forEach(btn=>{
-        btn.addEventListener('click', (e)=>{
-          const preselect = btn.getAttribute('data-choice');
-          modal.style.display = 'flex';
-          modal.setAttribute('aria-hidden','false');
-          document.body.style.overflow = 'hidden';
-          if(preselect){
-            const input = modal.querySelector(`input[name="goal"][value="${preselect==='membership' || preselect==='individual' ? 'awareness' : preselect}"]`);
-            if(input){ input.checked = true; renderSuggestions(input.value); }
-          }
-          // focus trap basic
-          modal.querySelector('button[data-close-modal]').focus();
-        });
+  // Wizard logic
+  (function(){
+    const modal = document.getElementById('wizard');
+    const openers = document.querySelectorAll('[data-open-wizard]');
+    const closers = modal.querySelectorAll('[data-close-modal]');
+    const suggestions = document.getElementById('suggestions');
+    const goalCopy = {
+      awareness:{ title:'Recommended for Awareness', items:[
+        {label:'Organizational Membership', href:'#org-membership'},
+        {label:'Individual Membership', href:'#stage-1'},
+        {label:'Vertical Urbanism Subscription', href:'#stage-1'},
+        {label:'Competitions & Student Research', href:'#stage-1'},
+        {label:'Awards of Excellence', href:'#stage-1'}
+      ]},
+      recognition:{ title:'Recommended for Recognition', items:[
+        {label:'Sponsor Global/Regional Conferences', href:'#stage-2'},
+        {label:'Sponsor Student Programs', href:'#stage-2'},
+        {label:'Building of Distinction', href:'#stage-2'},
+        {label:'Advertise in Vertical Urbanism', href:'#stage-2'}
+      ]},
+      leadership:{ title:'Recommended for Leadership', items:[
+        {label:'Strategic Program Partnerships', href:'#stage-3'},
+        {label:'Commission a White Paper', href:'#stage-3'},
+        {label:'Commission an In Detail Volume', href:'#stage-3'},
+        {label:'Interactive Data Studies', href:'#stage-3'}
+      ]},
+      legacy:{ title:'Recommended for Legacy', items:[
+        {label:'Co-branded Technical Guides', href:'#stage-4'},
+        {label:'Long-Term Research Initiatives', href:'#stage-4'}
+      ]}
+    };
+    function render(key){
+      if(!goalCopy[key]){ suggestions.innerHTML=''; return; }
+      const {title,items}=goalCopy[key];
+      suggestions.innerHTML = `<h4 style="margin:0 0 8px">${title}</h4>
+        <ul style="list-style:none; padding:0; margin:0; display:grid; gap:10px">
+          ${items.map(i=>`<li style="border:1px solid var(--line); border-radius:10px; padding:12px; background:#141414">
+            <a class="btn secondary" href="${i.href}" data-close-modal>${i.label}</a></li>`).join('')}
+        </ul>`;
+    }
+    document.querySelectorAll('[data-open-wizard]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        openBackdrop(modal);
+        const pre=btn.getAttribute('data-choice');
+        const key=(pre==='membership'||pre==='individual')?'awareness':pre;
+        if(key){ const input=modal.querySelector(`input[name="goal"][value="${key}"]`); if(input){ input.checked=true; render(key); } }
+        modal.querySelector('button[data-close-modal]').focus();
       });
-      closers.forEach(btn=>{
-        btn.addEventListener('click', ()=>{
-          modal.style.display = 'none';
-          modal.setAttribute('aria-hidden','true');
-          document.body.style.overflow = '';
-        });
-      });
-      modal.addEventListener('click', (e)=>{ if(e.target === modal){ closers[0].click(); }});
-      modal.querySelectorAll('input[name="goal"]').forEach(r=>{
-        r.addEventListener('change', ()=>renderSuggestions(r.value));
-      });
-      // Allow any link inside the wizard with data-close-modal to close it
-      modal.addEventListener('click', (e)=>{
-        const target = e.target.closest('[data-close-modal]');
-        if(target){
-          closers[0].click();
+    });
+    closers.forEach(b=>b.addEventListener('click',()=>closeBackdrop(modal)));
+    modal.addEventListener('click', e=>{ if(e.target===modal){ closeBackdrop(modal); }});
+    window.addEventListener('keydown', e=>{ if(e.key==='Escape' && modal.style.display==='flex'){ closeBackdrop(modal); }});
+    modal.querySelectorAll('input[name="goal"]').forEach(r=>r.addEventListener('change',()=>render(r.value)));
+    modal.addEventListener('click', e=>{ const link=e.target.closest('a[data-close-modal]'); if(link){ closeBackdrop(modal); }});
+  })();
+
+  // Tiers modal
+  (function(){
+    const modal=document.getElementById('tiers-modal');
+    document.querySelectorAll('[data-open-tiers]').forEach(b=>b.addEventListener('click',()=>{ openBackdrop(modal); modal.querySelector('[data-close-tiers]').focus(); }));
+    modal.querySelectorAll('[data-close-tiers]').forEach(b=>b.addEventListener('click',()=>closeBackdrop(modal)));
+    modal.addEventListener('click',e=>{ if(e.target===modal){ closeBackdrop(modal); }});
+    window.addEventListener('keydown',e=>{ if(e.key==='Escape' && modal.style.display==='flex'){ closeBackdrop(modal);} });
+  })();
+
+  // Tooltips (click/Enter/Space toggle; Esc or outside closes)
+  (function(){
+    function closeAll(){ document.querySelectorAll('.tt[aria-expanded="true"]').forEach(t=>t.setAttribute('aria-expanded','false')); }
+    document.addEventListener('click', e=>{
+      const t = e.target.closest('.tt');
+      if(!t){ closeAll(); return; }
+      const open = t.getAttribute('aria-expanded')==='true';
+      closeAll(); t.setAttribute('aria-expanded', open?'false':'true');
+    });
+    document.addEventListener('keydown', e=>{
+      if(e.key==='Escape'){ closeAll(); }
+      if((e.key==='Enter'||e.key===' ') && e.target.classList.contains('tt')){
+        e.preventDefault();
+        const btn=e.target;
+        const open=btn.getAttribute('aria-expanded')==='true';
+        btn.setAttribute('aria-expanded', open?'false':'true');
+      }
+    });
+  })();
+
+  // Ecosystem ribbon highlight on scroll
+  (function(){
+    const steps=[{id:'stage-1',i:1},{id:'stage-2',i:2},{id:'stage-3',i:3},{id:'stage-4',i:4}];
+    const links=[...document.querySelectorAll('.eco-step')];
+    function setActive(i){ links.forEach(l=>l.classList.toggle('active', Number(l.dataset.step)===i)); }
+    const io=new IntersectionObserver((entries)=>{
+      entries.forEach(en=>{
+        if(en.isIntersecting){
+          const idx=steps.find(s=>s.id===en.target.id)?.i;
+          if(idx) setActive(idx);
         }
       });
-      // Escape key closes
-      window.addEventListener('keydown', (e)=>{
-        if(e.key === 'Escape' && modal.style.display === 'flex'){ closers[0].click(); }
-      });
-    })();
-  </script>
+    },{rootMargin:'-40% 0px -55% 0px', threshold:0.01});
+    steps.forEach(s=>{ const el=document.getElementById(s.id); if(el) io.observe(el); });
+    setActive(1);
+  })();
+</script>
 </body>
 </html>
