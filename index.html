@@ -1,724 +1,590 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>CVU 2026 Partner Journey — Cohesive Ecosystem</title>
-<meta name="description" content="A cohesive, scroll-based partner journey that connects CVU’s four engagement levels with clear CTAs, images, and a comparison matrix." />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-<style>
-  :root{
-    /* CVU brand */
-    --bg:#171717; --ink:#FCFCFC; --accent:#B4EB17; --accent-ink:#171717;
+  <meta charset="utf-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  />
+  <title>CVU Partnerships Journey</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --cvu-bg:#171717;      /* background */
+      --cvu-text:#FCFCFC;    /* primary text / white */
+      --cvu-accent:#B4EB17;  /* accent */
+      --cvu-muted:#9EA3A9;   /* subtle text */
+      --cvu-card:#1f1f1f;    /* card bg */
+      --cvu-card-2:#232323;  /* alt card bg */
+      --radius:16px;
+      --radius-lg:20px;
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+      --maxw:1200px;
+      --ribbon-h:64px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial;
+      background:var(--cvu-bg); color:var(--cvu-text); line-height:1.5;
+    }
+    a{color:inherit; text-decoration:none}
+    .container{max-width:var(--maxw); margin-inline:auto; padding:0 20px}
 
-    /* UI */
-    --line: rgba(252,252,252,.12);
-    --muted: rgba(252,252,252,.74);
-    --panel:#1e1e1e; --card:#1a1a1a;
-    --shadow: 0 10px 30px rgba(0,0,0,.35);
-    --focus:#ffe08a;
-    --radius:14px; --radius-lg:20px;
-    --pad: clamp(16px, 2.5vw, 28px);
-    --maxw: 1200px;
-  }
-  *{box-sizing:border-box}
-  html,body{height:100%}
-  body{
-    font-family: Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji",sans-serif;
-    background:var(--bg); color:var(--ink); margin:0; line-height:1.5;
-    -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
-  }
-  a{color:var(--accent);text-decoration:none}
-  a:hover{text-decoration:underline}
-  .wrap{max-width:var(--maxw); margin-inline:auto; padding-inline:var(--pad)}
-  .section{padding-block:clamp(56px,8vw,100px); border-top:1px solid var(--line)}
-  .subtle{color:var(--muted)}
-  .pill{display:inline-block; font-size:12px; border:1px solid var(--line); padding:6px 10px; border-radius:999px; color:var(--muted)}
-  .btn{display:inline-flex; align-items:center; gap:10px; padding:12px 18px; background:var(--accent); color:var(--accent-ink);
-       border:none; border-radius:10px; font-weight:800; cursor:pointer; box-shadow:var(--shadow)}
-  .btn.secondary{background:transparent; color:var(--ink); outline:1px solid var(--line)}
-  .btn:focus-visible{outline:3px solid var(--focus); outline-offset:2px; border-radius:12px}
+    /* Hero */
+    .hero{padding:64px 0 24px}
+    .eyebrow{color:var(--cvu-accent); font-weight:600; letter-spacing:.08em; text-transform:uppercase; font-size:.85rem}
+    h1{margin:.35rem 0 1rem; font-size:clamp(28px,3.5vw,44px); line-height:1.15}
+    .lead{color:var(--cvu-muted); max-width:65ch; font-size:1.05rem}
 
-  header.placeholder, footer.placeholder{
-    background:transparent; color:var(--muted); text-align:center; padding:8px;
-    border-bottom:1px dashed var(--line); border-top:1px dashed var(--line);
-  }
+    /* Sticky ecosystem ribbon */
+    .ecosystem{
+      position:sticky; top:0; z-index:50;
+      background:linear-gradient(180deg, #191919 0%, #111 100%);
+      box-shadow:0 4px 14px rgba(0,0,0,.35);
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .eco-steps{display:flex; gap:10px; align-items:center; padding:12px 0; overflow:auto}
+    .eco-step{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:10px 14px; background:#111; border:1px solid rgba(255,255,255,.06);
+      border-radius:999px; white-space:nowrap; font-weight:600; font-size:.95rem;
+      transition:transform .15s ease, background .2s ease, border-color .2s ease;
+    }
+    .eco-step span.num{
+      display:inline-grid; place-items:center; width:26px; height:26px; border-radius:50%;
+      background:var(--cvu-card-2); font-weight:700; font-size:.85rem;
+    }
+    .eco-step:hover{transform:translateY(-1px); border-color:rgba(255,255,255,.16)}
+    .eco-step.active{background:var(--cvu-accent); color:#111; border-color:transparent}
+    .eco-step.active span.num{background:#111; color:var(--cvu-accent)}
 
-  /* HERO */
-  .hero{padding-block:clamp(64px,9vw,120px)}
-  .hero h1{font-size:clamp(28px,4.8vw,52px); line-height:1.05; margin:0 0 10px}
-  .hero p{max-width:68ch; color:var(--muted); margin:0 0 18px}
-  .hero .cta-row{display:flex; gap:12px; flex-wrap:wrap}
+    /* Sections */
+    section.stage{scroll-margin-top:calc(var(--ribbon-h) + 16px); padding:48px 0}
+    .stage-grid{
+      display:grid; grid-template-columns:1.2fr .8fr; gap:28px; align-items:start;
+    }
+    .stage h2{margin:0 0 .25rem; font-size:clamp(22px,2.5vw,30px)}
+    .subtitle{color:var(--cvu-muted); margin:0 0 1rem}
+    .card{
+      background:var(--cvu-card); border:1px solid rgba(255,255,255,.06); border-radius:var(--radius);
+      padding:18px; box-shadow:var(--shadow);
+    }
+    .img-wrap{
+      border-radius:var(--radius); overflow:hidden; border:1px solid rgba(255,255,255,.06);
+      background:#0f0f0f;
+    }
+    .img-wrap img{display:block; width:100%; height:100%; object-fit:cover; aspect-ratio: 16/10;}
 
-  /* HERO image strip (action-supporting visuals) */
-  .hero-strip{display:grid; grid-template-columns:repeat(6,1fr); gap:8px; margin-top:18px}
-  .tile{
-    position:relative; border:1px solid var(--line); border-radius:10px; overflow:hidden; background:#101010;
-    min-height:72px;
-  }
-  .tile img{width:100%; height:100%; object-fit:cover; display:block}
-  .tile .cap{position:absolute; inset:auto 0 0 0; background:linear-gradient(180deg, transparent, rgba(0,0,0,.55)); padding:8px 10px; font-size:12px}
+    .cta-row{display:flex; gap:12px; flex-wrap:wrap; margin-top:14px}
+    .btn{
+      appearance:none; border:0; border-radius:12px; padding:12px 16px; font-weight:600; cursor:pointer;
+      background:var(--cvu-accent); color:#111; transition:transform .15s ease, box-shadow .2s ease;
+    }
+    .btn.secondary{background:#0f0f0f; color:var(--cvu-text); border:1px solid rgba(255,255,255,.14)}
+    .btn:hover{transform:translateY(-1px)}
+    .btn:focus-visible{outline:2px solid var(--cvu-accent); outline-offset:2px}
 
-  /* ECOSYSTEM RIBBON */
-  .ecosystem{
-    position:sticky; top:0; z-index:50; background:rgba(23,23,23,.9); backdrop-filter:saturate(130%) blur(8px);
-    border-bottom:1px solid var(--line);
-  }
-  .eco-wrap{max-width:var(--maxw); margin-inline:auto; padding:10px var(--pad); display:grid; gap:10px}
-  .eco-steps{display:grid; grid-template-columns:repeat(4,1fr); gap:8px}
-  .eco-step{
-    display:flex; align-items:center; gap:8px; padding:10px; border:1px solid var(--line); border-radius:999px;
-    background:#1a1a1a; color:var(--muted); font-weight:700; justify-content:center;
-  }
-  .eco-step .dot{width:10px; height:10px; border-radius:50%; background:var(--line)}
-  .eco-step.active{color:var(--accent-ink); background:var(--accent); border-color:var(--accent)}
-  .eco-step.active .dot{background:#0f1b0a}
-  .eco-cta{display:flex; justify-content:flex-end}
-  .eco-cta .btn{padding:10px 14px}
+    /* Compare tiers table */
+    .tiers{
+      width:100%; border-collapse:separate; border-spacing:0; overflow:hidden;
+      border-radius:var(--radius); background:var(--cvu-card); border:1px solid rgba(255,255,255,.08);
+    }
+    .tiers th,.tiers td{padding:14px 16px; border-bottom:1px solid rgba(255,255,255,.06); vertical-align:top}
+    .tiers thead th{
+      position:sticky; top:0; background:#151515; z-index:2; text-align:left; font-size:.95rem
+    }
+    .tiers tbody tr:nth-child(odd){background:rgba(255,255,255,.02)}
+    .check{font-weight:700}
+    .x{opacity:.35}
 
-  /* Stage + grids */
-  .stage-head{display:flex; justify-content:space-between; align-items:end; gap:16px; margin-bottom:14px}
-  .stage-eyebrow{font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-weight:800}
-  .stage-title{font-size:clamp(22px,3.2vw,34px); margin:6px 0 0}
-  .stage-intro{color:var(--muted); max-width:70ch}
+    /* Tooltip */
+    .tooltip{position:relative; cursor:help; border-bottom:1px dotted rgba(255,255,255,.35)}
+    .tooltip .tip{
+      position:absolute; left:0; bottom:calc(100% + 8px); max-width:300px;
+      background:#0f0f0f; border:1px solid rgba(255,255,255,.15); border-radius:10px;
+      padding:10px 12px; font-size:.9rem; color:var(--cvu-text); box-shadow:var(--shadow);
+      opacity:0; transform:translateY(6px); pointer-events:none; transition:opacity .15s ease, transform .15s ease;
+    }
+    .tooltip:focus-within .tip, .tooltip:hover .tip{opacity:1; transform:translateY(0)}
+    .sr-only{position:absolute!important; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0}
 
-  .grid{display:grid; gap:16px}
-  @media (min-width:720px){ .grid.cols-2{grid-template-columns:1fr 1fr} }
-  @media (min-width:960px){ .grid.cols-3{grid-template-columns:repeat(3,1fr)} }
+    /* Modal (lightbox) */
+    .backdrop{
+      position:fixed; inset:0; background:rgba(0,0,0,.7);
+      display:none; align-items:center; justify-content:center;
+      z-index:1000; /* higher than ribbon; fixes prior “behind bar” issue */
+    }
+    .backdrop[aria-hidden="false"]{display:flex}
+    .modal{
+      background:var(--cvu-card); border:1px solid rgba(255,255,255,.12); border-radius:var(--radius-lg);
+      width:min(920px, 92vw); max-height:90vh; overflow:auto; box-shadow:var(--shadow);
+    }
+    .modal header{
+      display:flex; justify-content:space-between; align-items:center; padding:18px 18px 0;
+    }
+    .modal .content{padding:18px}
+    .close{
+      background:transparent; border:1px solid rgba(255,255,255,.18); color:var(--cvu-text);
+      border-radius:10px; padding:8px 12px; cursor:pointer;
+    }
 
-  .card{
-    background:linear-gradient(180deg, var(--card), #141414); border:1px solid var(--line);
-    border-radius:var(--radius); padding:var(--pad); box-shadow:var(--shadow); display:grid; gap:10px;
-  }
-  /* Media thumb inside cards */
-  .card-media{
-    width:100%; aspect-ratio: 16 / 9; background:#0f0f0f; border:1px solid var(--line); border-radius:10px; overflow:hidden;
-  }
-  .card-media img{width:100%; height:100%; object-fit:cover; display:block}
-  .card h3{margin:0 0 6px; font-size:clamp(16px,2.2vw,20px)}
-  .card p{margin:0 0 12px; color:var(--muted)}
-  .actions{display:flex; flex-wrap:wrap; gap:8px}
+    /* Simple footer placeholder */
+    .page-foot{padding:48px 0 64px; color:var(--cvu-muted); text-align:center; font-size:.95rem}
 
-  /* Sticky CTA footer */
-  .sticky-cta{position:sticky; bottom:0; z-index:40; background:rgba(23,23,23,.94); border-top:1px solid var(--line)}
-  .sticky-inner{max-width:var(--maxw); margin-inline:auto; padding:12px var(--pad); display:flex; gap:14px; align-items:center; justify-content:space-between; flex-wrap:wrap}
-  .sticky-inner p{margin:0; color:var(--muted)}
-
-  /* Reveal */
-  .reveal{opacity:0; transform:translateY(14px); transition:opacity .6s ease, transform .6s ease}
-  .reveal.in-view{opacity:1; transform:none}
-
-  /* Modals */
-  .modal-backdrop{position:fixed; inset:0; display:none; align-items:center; justify-content:center; padding:20px;
-    background:rgba(0,0,0,.6); z-index:1000; /* FIX: higher than ecosystem ribbon */ }
-  .modal{width:min(1100px,100%); background:#121212; border:1px solid var(--line); border-radius:var(--radius-lg); box-shadow:var(--shadow); max-height:85vh; overflow:auto; color:var(--ink); z-index:1001; position:relative}
-  .modal header{display:flex; align-items:center; justify-content:space-between; padding:16px var(--pad); border-bottom:1px solid var(--line)}
-  .modal .body{padding:var(--pad)}
-  .x{background:transparent; border:1px solid var(--line); color:var(--muted); border-radius:8px; padding:8px 10px; cursor:pointer}
-  .x:hover{color:var(--ink)}
-
-  .modal .grid-mini{display:grid; gap:12px}
-  @media (min-width:740px){ .modal .grid-mini{grid-template-columns:repeat(2,1fr)} }
-  .chip{display:inline-flex; align-items:center; gap:8px; border:1px solid var(--line); padding:8px 12px; border-radius:999px; color:var(--ink); cursor:pointer; user-select:none}
-  .chip input{appearance:none; width:14px; height:14px; border:2px solid var(--muted); border-radius:50%}
-  .chip input:checked{border-color:var(--accent); background:var(--accent)}
-
-  /* Matrix + tooltips */
-  .tiers-matrix{--colw:170px; width:100%; overflow:auto; border:1px solid var(--line); border-radius:12px; background:#141414}
-  .tm-grid{display:grid; grid-template-columns: minmax(220px, 1.1fr) repeat(4, minmax(var(--colw), 1fr)); align-items:stretch; border-bottom:1px solid var(--line)}
-  .tm-cell{padding:12px 14px; border-right:1px solid var(--line)}
-  .tm-head{position:sticky; top:0; z-index:2; background:#1a1a1a; font-weight:800}
-  .tm-colhead{text-align:center}
-  .tm-tier{display:flex; flex-direction:column; gap:6px; align-items:center}
-  .badge{display:inline-flex; align-items:center; gap:6px; font-size:12px; letter-spacing:.02em; background:var(--accent); color:var(--accent-ink); padding:4px 8px; border-radius:999px; font-weight:800}
-  .tm-rowhead{background:#161616; font-weight:700; display:flex; align-items:center; gap:8px}
-  .tm-check{display:flex; align-items:center; justify-content:center}
-  .tm-note{font-size:12px; color:var(--muted); margin-top:10px}
-  .icon{width:18px; height:18px; display:inline-block}
-
-  /* Tooltip */
-  .tt{position:relative; display:inline-flex; align-items:center; justify-content:center; width:18px; height:18px; border-radius:50%; border:1px solid var(--line); color:var(--muted); font-size:12px; cursor:help}
-  .tt:focus-visible{outline:2px solid var(--focus); outline-offset:2px}
-  .tt-panel{position:absolute; left:50%; top:calc(100% + 8px); transform:translateX(-50%); min-width:240px; max-width:340px;
-    background:#101010; color:var(--ink); border:1px solid var(--line); border-radius:10px; padding:10px 12px; box-shadow:var(--shadow);
-    opacity:0; pointer-events:none; transition:opacity .15s ease; z-index:3}
-  .tt[aria-expanded="true"] + .tt-panel{opacity:1; pointer-events:auto}
-
-  /* Fallback visual for missing images */
-  .fallback{
-    display:flex; align-items:center; justify-content:center; width:100%; height:100%;
-    background:repeating-linear-gradient(135deg, #0f0f0f 0 12px, #151515 12px 24px);
-    color:var(--muted); font-size:12px;
-  }
-
-  @media (max-width:740px){
-    .hero-strip{grid-template-columns:repeat(3,1fr)}
-    .tm-grid{grid-template-columns:1fr}
-    .tm-cell{border-right:none; border-bottom:1px solid var(--line)}
-    .tm-head{position:relative}
-    .tm-colhead{text-align:left}
-  }
-
-  @media (prefers-reduced-motion: reduce){
-    .reveal{transition:none}
-    html{scroll-behavior:auto}
-  }
-</style>
+    /* Responsive */
+    @media (max-width: 900px){
+      .stage-grid{grid-template-columns:1fr; gap:18px}
+    }
+  </style>
 </head>
 <body>
 
-<header class="placeholder" aria-label="Site header placeholder">
-  CVU header placeholder
-</header>
-
-<!-- HERO -->
-<section class="hero wrap" id="top" aria-labelledby="hero-title">
-  <h1 id="hero-title">Advance from Awareness to Industry Leadership</h1>
-  <p>Present CVU’s engagement ecosystem as a single, intentional journey. Choose your goal, see matching opportunities, and contact the Global Development team.</p>
-  <div class="cta-row">
-    <button class="btn" data-open-wizard>Start Your Journey →</button>
-    <a class="btn secondary" href="mailto:jhall@ctbuh.org?subject=CVU%202026%20Partnership%20Inquiry">Contact Global Development</a>
-  </div>
-</section>
-
-<!-- ECOSYSTEM RIBBON -->
-<nav class="ecosystem" aria-label="CVU engagement ecosystem">
-  <div class="eco-wrap wrap">
-    <div class="eco-steps" role="tablist">
-      <a class="eco-step" role="tab" href="#stage-1" data-step="1"><span class="dot"></span> 1 · Get Involved</a>
-      <a class="eco-step" role="tab" href="#stage-2" data-step="2"><span class="dot"></span> 2 · Amplify Expertise</a>
-      <a class="eco-step" role="tab" href="#stage-3" data-step="3"><span class="dot"></span> 3 · Shape the Conversation</a>
-      <a class="eco-step" role="tab" href="#stage-4" data-step="4"><span class="dot"></span> 4 · Drive Global Impact</a>
-    </div>
-    <div class="eco-cta">
-      <button class="btn" data-open-wizard>Design Your Journey</button>
-    </div>
-  </div>
-</nav>
-
-<!-- STAGE 1 -->
-<section class="section wrap" id="stage-1" aria-labelledby="s1-title">
-  <div class="stage-head reveal">
-    <div>
-      <div class="stage-eyebrow">Stage 1 · Awareness</div>
-      <h2 id="s1-title" class="stage-title">Get Involved</h2>
-    </div>
-  </div>
-  <p class="stage-intro reveal">Concise entry points. Minimal imagery. Decision-forward cards with direct actions.</p>
-
-  <div class="grid cols-3" style="margin-top:14px">
-    <article class="card reveal" id="org-membership">
-      <div class="card-media">
-        <img src="images/hero-collage.jpg" alt="Members collaborating at a CVU event" onerror="this.replaceWith(fallback())">
-      </div>
-      <h3>Organizational Membership</h3>
-      <p>Four tiers with scalable benefits (experts, visibility, events, data tools).</p>
-      <div class="actions">
-        <button class="btn secondary" data-open-tiers>Compare Tiers</button>
-        <a class="btn" href="mailto:jhall@ctbuh.org?subject=CVU%20Organizational%20Membership">Talk to Membership</a>
-      </div>
-    </article>
-
-    <article class="card reveal">
-      <div class="card-media">
-        <img src="images/vu-cover.jpg" alt="Vertical Urbanism cover" onerror="this.replaceWith(fallback())">
-      </div>
-      <h3>Individual Membership</h3>
-      <p>Professional, academic/retired, and student options with community access.</p>
-      <div class="actions">
-        <a class="btn secondary" href="mailto:jhall@ctbuh.org?subject=Join%20CVU%20Individual%20Membership">Join Now</a>
-      </div>
-    </article>
-
-    <article class="card reveal">
-      <div class="card-media">
-        <img src="images/vu-cover.jpg" alt="Vertical Urbanism magazine" onerror="this.replaceWith(fallback())">
-      </div>
-      <h3><em>Vertical Urbanism</em> Magazine</h3>
-      <p>Subscribe for digital access to insights and case studies.</p>
-      <div class="actions">
-        <a class="btn secondary" target="_blank" rel="noopener" href="https://store.ctbuh.org/">Subscribe</a>
-      </div>
-    </article>
-  </div>
-
-  <div class="grid cols-2" style="margin-top:14px">
-    <article class="card reveal">
-      <div class="card-media">
-        <img src="images/data-study.jpg" alt="Student design visual" onerror="this.replaceWith(fallback())">
-      </div>
-      <h3>Student Design & Research</h3>
-      <p>Enter the International Student Design Competition or Student Research Competition.</p>
-      <div class="actions">
-        <a class="btn secondary" href="mailto:jhall@ctbuh.org?subject=Competition%20Inquiry">Explore Opportunities</a>
-      </div>
-    </article>
-
-    <article class="card reveal">
-      <div class="card-media">
-        <img src="images/building-distinction.jpg" alt="Awards ceremony" onerror="this.replaceWith(fallback())">
-      </div>
-      <h3>Awards of Excellence</h3>
-      <p>Submit projects to present at the international conference.</p>
-      <div class="actions">
-        <a class="btn secondary" target="_blank" rel="noopener" href="https://awards.ctbuh.org/">Submit Your Project</a>
-      </div>
-    </article>
-  </div>
-</section>
-
-<!-- STAGE 2 -->
-<section class="section wrap" id="stage-2" aria-labelledby="s2-title">
-  <div class="stage-head reveal">
-    <div>
-      <div class="stage-eyebrow">Stage 2 · Recognition</div>
-      <h2 id="s2-title" class="stage-title">Amplify Expertise Globally</h2>
-    </div>
-  </div>
-  <p class="stage-intro reveal">Spotlight tangible actions: sponsor, nominate, advertise. No decorative carousels.</p>
-
-  <div class="grid cols-3" style="margin-top:14px">
-    <article class="card reveal">
-      <div class="card-media">
-        <img src="images/conference.jpg" alt="Global conference hall with sponsors" onerror="this.replaceWith(fallback())">
-      </div>
-      <h3>Global & Regional Conferences</h3>
-      <p>Showcase your brand at the Global Summit and regionals.</p>
-      <div class="actions">
-        <button class="btn" data-open-wizard data-choice="sponsorship">View Sponsorship Levels</button>
-      </div>
-    </article>
-
-    <article class="card reveal">
-      <div class="card-media">
-        <img src="images/hero-collage.jpg" alt="Students working in studio" onerror="this.replaceWith(fallback())">
-      </div>
-      <h3>Sponsor Student Programs</h3>
-      <p>Support the Traveling Studio, Design Competition, Student Research, or Seed Funding.</p>
-      <div class="actions">
-        <a class="btn secondary" href="mailto:jhall@ctbuh.org?subject=Student%20Program%20Sponsorship">Sponsor a Program</a>
-      </div>
-    </article>
-
-    <article class="card reveal">
-      <div class="card-media">
-        <img src="images/building-distinction.jpg" alt="Building of Distinction plaque on site" onerror="this.replaceWith(fallback())">
-      </div>
-      <h3>Building of Distinction</h3>
-      <p>Nominate your landmark project for on-site recognition and global coverage.</p>
-      <div class="actions">
-        <a class="btn secondary" href="mailto:jhall@ctbuh.org?subject=Building%20of%20Distinction">Nominate Your Building</a>
-      </div>
-    </article>
-  </div>
-
-  <div class="grid cols-1" style="margin-top:14px">
-    <article class="card reveal">
-      <div class="card-media">
-        <img src="images/vu-cover.jpg" alt="Vertical Urbanism magazine ad spread" onerror="this.replaceWith(fallback())">
-      </div>
-      <h3>Advertise in <em>Vertical Urbanism</em></h3>
-      <p>Reach a global cross-disciplinary audience of decision-makers.</p>
-      <div class="actions">
-        <a class="btn secondary" href="mailto:jhall@ctbuh.org?subject=Vertical%20Urbanism%20Advertising">Book an Ad</a>
-      </div>
-    </article>
-  </div>
-</section>
-
-<!-- STAGE 3 -->
-<section class="section wrap" id="stage-3" aria-labelledby="s3-title">
-  <div class="stage-head reveal">
-    <div>
-      <div class="stage-eyebrow">Stage 3 · Leadership</div>
-      <h2 id="s3-title" class="stage-title">Shape the Conversation</h2>
-    </div>
-  </div>
-  <p class="stage-intro reveal">Lead thought and policy through programs, publications, and data.</p>
-
-  <div class="grid cols-3" style="margin-top:14px">
-    <article class="card reveal">
-      <div class="card-media">
-        <img src="images/hero-collage.jpg" alt="Roundtable discussion" onerror="this.replaceWith(fallback())">
-      </div>
-      <h3>Strategic Program Partnerships</h3>
-      <p>City Advocacy Forum · Sustainability Initiative · Tall + Urban Innovation.</p>
-      <div class="actions">
-        <button class="btn" data-open-wizard data-choice="programs">View Partner Levels</button>
-      </div>
-    </article>
-
-    <article class="card reveal">
-      <div class="card-media">
-        <img src="images/in-detail.jpg" alt="White paper layout on table" onerror="this.replaceWith(fallback())">
-      </div>
-      <h3>Commission a White Paper</h3>
-      <p>Authoritative, co-branded research with global reach.</p>
-      <div class="actions">
-        <a class="btn secondary" href="mailto:jhall@ctbuh.org?subject=White%20Paper%20Commission">Discuss a Topic</a>
-      </div>
-    </article>
-
-    <article class="card reveal">
-      <div class="card-media">
-        <img src="images/in-detail.jpg" alt="In Detail publication spread" onerror="this.replaceWith(fallback())">
-      </div>
-      <h3>Commission an <em>In Detail</em> Volume</h3>
-      <p>Document your project in a rigorous, visual monograph.</p>
-      <div class="actions">
-        <a class="btn secondary" href="mailto:jhall@ctbuh.org?subject=In%20Detail%20Commission">Commission Your Book</a>
-      </div>
-    </article>
-  </div>
-
-  <div class="grid cols-1" style="margin-top:14px">
-    <article class="card reveal">
-      <div class="card-media">
-        <img src="images/data-study.jpg" alt="Interactive data map screen" onerror="this.replaceWith(fallback())">
-      </div>
-      <h3>Interactive Data Studies</h3>
-      <p>StoryMap-style analytics that support decisions and policy briefs.</p>
-      <div class="actions">
-        <a class="btn secondary" href="mailto:jhall@ctbuh.org?subject=Interactive%20Data%20Study%20Proposal">Launch a Data Study</a>
-      </div>
-    </article>
-  </div>
-</section>
-
-<!-- STAGE 4 -->
-<section class="section wrap" id="stage-4" aria-labelledby="s4-title">
-  <div class="stage-head reveal">
-    <div>
-      <div class="stage-eyebrow">Stage 4 · Legacy</div>
-      <h2 id="s4-title" class="stage-title">Drive Global Impact</h2>
-    </div>
-  </div>
-  <p class="stage-intro reveal">Define standards and long-term research that shape practice.</p>
-
-  <div class="grid cols-2" style="margin-top:14px">
-    <article class="card reveal">
-      <div class="card-media">
-        <img src="images/technical-guide.jpg" alt="Technical guide cover stack" onerror="this.replaceWith(fallback())">
-      </div>
-      <h3>Co-branded Technical Guides</h3>
-      <p>Practice-ready references developed with expert working groups and CVU Research.</p>
-      <div class="actions">
-        <a class="btn secondary" href="mailto:jhall@ctbuh.org?subject=Technical%20Guide%20Underwriting">Underwrite a Guide</a>
-      </div>
-    </article>
-    <article class="card reveal">
-      <div class="card-media">
-        <img src="images/hero-collage.jpg" alt="Research timeline boards" onerror="this.replaceWith(fallback())">
-      </div>
-      <h3>Long-Term Research Initiatives</h3>
-      <p>Multi-year scope, steering committee, validation, global dissemination.</p>
-      <div class="actions">
-        <a class="btn secondary" href="mailto:jhall@ctbuh.org?subject=Long-Term%20Research%20Topic">Propose a Research Topic</a>
-      </div>
-    </article>
-  </div>
-</section>
-
-<!-- Sticky CTA -->
-<div class="sticky-cta" role="region" aria-label="Sticky call to action">
-  <div class="sticky-inner">
-    <p>Ready to map your journey?</p>
+  <!-- HERO -->
+  <div class="hero container">
+    <div class="eyebrow">Partnerships</div>
+    <h1>Engage with CVU: a single, intentional journey</h1>
+    <p class="lead">
+      Progress through four connected levels—<strong>Awareness</strong>, <strong>Participation</strong>,
+      <strong>Partnership</strong>, and <strong>Leadership</strong>—with clear calls to action at every step.
+    </p>
     <div class="cta-row">
-      <button class="btn" data-open-wizard>Start Here</button>
-      <a class="btn secondary" href="mailto:jhall@ctbuh.org?subject=CVU%202026%20Partnership%20Inquiry">Email Our Team</a>
+      <a class="btn" href="#wizard" data-open-wizard>Start journey</a>
+      <a class="btn secondary" href="#tiers" data-open-tiers>Compare tiers</a>
     </div>
   </div>
-</div>
 
-<footer class="placeholder" aria-label="Site footer placeholder">
-  CVU footer placeholder
-</footer>
-
-<!-- Journey Wizard -->
-<div class="modal-backdrop" id="wizard" aria-hidden="true" role="dialog" aria-labelledby="wizard-title">
-  <div class="modal" role="document">
-    <header>
-      <h3 id="wizard-title">Design Your CVU Journey</h3>
-      <button class="x" data-close-modal aria-label="Close wizard">Close</button>
-    </header>
-    <div class="body">
-      <p class="subtle" style="margin-top:0">Pick your primary goal to see suggested options. Mix & match anytime.</p>
-      <div class="grid-mini" style="margin-top:12px">
-        <label class="chip"><input type="radio" name="goal" value="awareness" /> Awareness · Get Involved</label>
-        <label class="chip"><input type="radio" name="goal" value="recognition" /> Recognition · Amplify Expertise</label>
-        <label class="chip"><input type="radio" name="goal" value="leadership" /> Leadership · Shape the Conversation</label>
-        <label class="chip"><input type="radio" name="goal" value="legacy" /> Legacy · Drive Global Impact</label>
-      </div>
-      <div id="suggestions" style="margin-top:18px" aria-live="polite"></div>
-      <div class="actions" style="margin-top:18px">
-        <a class="btn" href="mailto:jhall@ctbuh.org?subject=CVU%202026%20Partnership%20Consultation">Request a Consultation</a>
-        <button class="btn secondary" data-close-modal>Done</button>
+  <!-- STICKY ECOSYSTEM RIBBON -->
+  <nav class="ecosystem" aria-label="Engagement steps">
+    <div class="container">
+      <div class="eco-steps">
+        <a class="eco-step" href="#stage-1" data-step="1"><span class="num">1</span> Awareness</a>
+        <a class="eco-step" href="#stage-2" data-step="2"><span class="num">2</span> Participation</a>
+        <a class="eco-step" href="#stage-3" data-step="3"><span class="num">3</span> Partnership</a>
+        <a class="eco-step" href="#stage-4" data-step="4"><span class="num">4</span> Leadership</a>
       </div>
     </div>
-  </div>
-</div>
+  </nav>
 
-<!-- Tiers Modal (Matrix + Tooltips) -->
-<div class="modal-backdrop" id="tiers-modal" aria-hidden="true" role="dialog" aria-labelledby="tiers-title">
-  <div class="modal" role="document">
-    <header>
-      <h3 id="tiers-title">Organizational Membership — Tier Comparison</h3>
-      <button class="x" data-close-tiers aria-label="Close tiers">Close</button>
-    </header>
-    <div class="body">
-      <p class="subtle" style="margin-top:0">Compare benefits and annual dues. Choose the level that fits your goals.</p>
-
-      <div class="tiers-matrix" role="table" aria-label="Organizational membership feature comparison">
-        <div class="tm-grid tm-head" role="row">
-          <div class="tm-cell tm-rowhead" role="columnheader">Feature</div>
-          <div class="tm-cell tm-colhead" role="columnheader"><div class="tm-tier"><div>Platinum</div><div class="badge">US$10,000</div></div></div>
-          <div class="tm-cell tm-colhead" role="columnheader"><div class="tm-tier"><div>Gold</div><div class="badge">US$5,000</div></div></div>
-          <div class="tm-cell tm-colhead" role="columnheader"><div class="tm-tier"><div>Silver</div><div class="badge">US$1,000</div></div></div>
-          <div class="tm-cell tm-colhead" role="columnheader"><div class="tm-tier"><div>Nonprofit/Gov’t</div><div class="badge">US$500</div></div></div>
-        </div>
-
-        <!-- Rows (with tooltips) -->
-        <div class="tm-grid" role="row">
-          <div class="tm-cell tm-rowhead" role="rowheader">
-            Designated Experts
-            <button class="tt" aria-expanded="false" aria-controls="tt-experts" aria-label="More about Designated Experts">i</button>
-            <div class="tt-panel" id="tt-experts" role="tooltip">Named staff with elevated access/roles (speaker eligibility, data tools, program participation). Higher tiers allow more experts.</div>
+  <!-- STAGE 1 -->
+  <section id="stage-1" class="stage container">
+    <div class="stage-grid">
+      <div class="img-wrap">
+        <img alt="Conference keynote audience"
+          src="https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=1600&auto=format&fit=crop" />
+      </div>
+      <div>
+        <h2>1) Awareness</h2>
+        <p class="subtitle">Meet CVU through news, events, and thought leadership.</p>
+        <div class="card">
+          <p>Explore the <em>InDetail</em> publication, sign up for updates, or attend a flagship event to learn what
+            partners achieve in our ecosystem.</p>
+          <div class="cta-row">
+            <a class="btn secondary" href="#wizard" data-open-wizard data-choice="awareness">Find opportunities</a>
+            <a class="btn" href="#tiers" data-open-tiers>Compare tiers</a>
           </div>
-          <div class="tm-cell tm-check" role="cell"><strong>Unlimited</strong></div>
-          <div class="tm-cell tm-check" role="cell"><strong>Up to 5</strong></div>
-          <div class="tm-cell tm-check" role="cell"><span class="subtle">Included</span></div>
-          <div class="tm-cell tm-check" role="cell"><span class="subtle">Included</span></div>
-        </div>
-
-        <div class="tm-grid" role="row">
-          <div class="tm-cell tm-rowhead" role="rowheader">
-            Brand visibility on CVU.org
-            <button class="tt" aria-expanded="false" aria-controls="tt-visibility" aria-label="More about visibility">i</button>
-            <div class="tt-panel" id="tt-visibility" role="tooltip">Logo placement on partner + program pages; Enhanced = larger/priority placement.</div>
-          </div>
-          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg> <span class="subtle">Enhanced</span></div>
-          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg></div>
-          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg></div>
-          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg></div>
-        </div>
-
-        <div class="tm-grid" role="row">
-          <div class="tm-cell tm-rowhead" role="rowheader">
-            Advanced data tools & queries
-            <button class="tt" aria-expanded="false" aria-controls="tt-data" aria-label="More about data tools">i</button>
-            <div class="tt-panel" id="tt-data" role="tooltip">Priority support for custom queries and enhanced access to datasets used in CVU research and visuals.</div>
-          </div>
-          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg> <span class="subtle">Priority</span></div>
-          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg></div>
-          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg></div>
-          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg></div>
-        </div>
-
-        <div class="tm-grid" role="row">
-          <div class="tm-cell tm-rowhead" role="rowheader">
-            Events: complimentary & discounted registrations
-            <button class="tt" aria-expanded="false" aria-controls="tt-events" aria-label="More about events benefits">i</button>
-            <div class="tt-panel" id="tt-events" role="tooltip">Complimentary passes and tiered discounts for CVU conferences and select programs. Higher tiers get more.</div>
-          </div>
-          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg> <span class="subtle">Highest</span></div>
-          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg></div>
-          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg></div>
-          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg></div>
-        </div>
-
-        <div class="tm-grid" role="row">
-          <div class="tm-cell tm-rowhead" role="rowheader">
-            Speaking & presentation opportunities
-            <button class="tt" aria-expanded="false" aria-controls="tt-speaking" aria-label="More about speaking">i</button>
-            <div class="tt-panel" id="tt-speaking" role="tooltip">Eligibility for plenaries, panels, and workshops increases by tier and relevance to program themes.</div>
-          </div>
-          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg> <span class="subtle">Priority</span></div>
-          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg></div>
-          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg></div>
-          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg></div>
-        </div>
-
-        <div class="tm-grid" role="row">
-          <div class="tm-cell tm-rowhead" role="rowheader">
-            Awards of Excellence eligibility
-            <button class="tt" aria-expanded="false" aria-controls="tt-awards" aria-label="More about awards">i</button>
-            <div class="tt-panel" id="tt-awards" role="tooltip">Eligibility to submit projects for global recognition; does not guarantee award selection.</div>
-          </div>
-          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg></div>
-          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg></div>
-          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg></div>
-          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg></div>
-        </div>
-
-        <div class="tm-grid" role="row">
-          <div class="tm-cell tm-rowhead" role="rowheader">
-            Leadership & committees eligibility
-            <button class="tt" aria-expanded="false" aria-controls="tt-lead" aria-label="More about leadership">i</button>
-            <div class="tt-panel" id="tt-lead" role="tooltip">Invitations to steering committees, juries, and advisory roles scale with tier and expertise.</div>
-          </div>
-          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg> <span class="subtle">Highest</span></div>
-          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg></div>
-          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg></div>
-          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg></div>
-        </div>
-
-        <div class="tm-grid" role="row">
-          <div class="tm-cell tm-rowhead" role="rowheader">
-            Regional presence (country/city pages)
-            <button class="tt" aria-expanded="false" aria-controls="tt-regional" aria-label="More about regional presence">i</button>
-            <div class="tt-panel" id="tt-regional" role="tooltip">Visibility on regional pages and city nodes within CVU’s network where applicable.</div>
-          </div>
-          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg></div>
-          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg></div>
-          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg></div>
-          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg></div>
-        </div>
-
-        <div class="tm-grid" role="row">
-          <div class="tm-cell tm-rowhead" role="rowheader">
-            Member value (journal, discounts)
-            <button class="tt" aria-expanded="false" aria-controls="tt-value" aria-label="More about member value">i</button>
-            <div class="tt-panel" id="tt-value" role="tooltip">Access to publications, discounts on events, and network benefits across programs.</div>
-          </div>
-          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg></div>
-          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg></div>
-          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg></div>
-          <div class="tm-cell tm-check" role="cell"><svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 16.2 5.3 12l1.4-1.4 2.8 2.8 7.8-7.8L19.7 7l-10.2 9.2z"/></svg></div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <p class="tm-note">Notes: All tiers include core benefits; higher tiers increase visibility and access. Tooltips explain each feature in context.</p>
+  <!-- STAGE 2 -->
+  <section id="stage-2" class="stage container">
+    <div class="stage-grid">
+      <div class="img-wrap">
+        <img alt="Hands-on workshop session"
+          src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1600&auto=format&fit=crop" />
+      </div>
+      <div>
+        <h2>2) Participation</h2>
+        <p class="subtitle">Participate in programs and communities aligned to your goals.</p>
+        <div class="card">
+          <p>Join forums, attend regional events, and contribute to research sprints that advance vertical urbanism.</p>
+          <div class="cta-row">
+            <a class="btn secondary" href="#wizard" data-open-wizard data-choice="participation">Match me to programs</a>
+            <a class="btn" href="#tiers" data-open-tiers>Compare tiers</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-      <div class="actions" style="margin-top:16px">
-        <a class="btn" href="mailto:jhall@ctbuh.org?subject=CVU%20Organizational%20Membership">Talk to Membership</a>
-        <button class="btn secondary" data-close-tiers>Close</button>
+  <!-- STAGE 3 -->
+  <section id="stage-3" class="stage container">
+    <div class="stage-grid">
+      <div class="img-wrap">
+        <img alt="Partners collaborating over plans"
+          src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=1600&auto=format&fit=crop" />
+      </div>
+      <div>
+        <h2>3) Partnership</h2>
+        <p class="subtitle">Co-create programs, sponsor initiatives, and publish impact together.</p>
+        <div class="card">
+          <p>Choose from event sponsorship, research partnerships, and content collaborations that showcase your leadership.</p>
+          <div class="cta-row">
+            <a class="btn secondary" href="#wizard" data-open-wizard data-choice="partnership">Build a package</a>
+            <a class="btn" href="#tiers" data-open-tiers>Compare tiers</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STAGE 4 -->
+  <section id="stage-4" class="stage container">
+    <div class="stage-grid">
+      <div class="img-wrap">
+        <img alt="Executive roundtable"
+          src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?q=80&w=1600&auto=format&fit=crop" />
+      </div>
+      <div>
+        <h2>4) Leadership</h2>
+        <p class="subtitle">Shape the global agenda and invest at the highest level.</p>
+        <div class="card">
+          <p>Access leadership councils and bespoke alliances that influence policy, research, and practice worldwide.</p>
+          <div class="cta-row">
+            <a class="btn secondary" href="#wizard" data-open-wizard data-choice="leadership">Talk to Global Development</a>
+            <a class="btn" href="#tiers" data-open-tiers>Compare tiers</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tiers Modal -->
+  <div class="backdrop" id="tiers-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Compare Membership Tiers">
+    <div class="modal" role="document">
+      <header>
+        <h3 style="margin:0">Membership & Partnership Tiers</h3>
+        <button class="close" type="button" data-close-tiers aria-label="Close tiers modal">Close</button>
+      </header>
+      <div class="content">
+        <p class="subtitle">At a glance — what each tier includes. Hover <span class="tooltip" tabindex="0" aria-describedby="tip-benefits">benefits
+          <span id="tip-benefits" class="tip">Summarized for quick comparison; final inclusions are customized by agreement.</span></span>
+          for details.</p>
+
+        <div style="overflow:auto">
+          <table class="tiers" aria-describedby="tiers-caption">
+            <caption id="tiers-caption" class="sr-only">Comparison of tiers from Silver to Platinum and Nonprofit/Government</caption>
+            <thead>
+              <tr>
+                <th scope="col">Benefit</th>
+                <th scope="col">Silver</th>
+                <th scope="col">Gold</th>
+                <th scope="col">Platinum</th>
+                <th scope="col">Nonprofit / Gov’t</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">InDetail access</th>
+                <td class="check">Included</td><td class="check">Included</td><td class="check">Included</td><td class="check">Included</td>
+              </tr>
+              <tr>
+                <th scope="row">Event discounts</th>
+                <td class="check">Standard</td><td class="check">Enhanced</td><td class="check">Premier</td><td class="check">Premier</td>
+              </tr>
+              <tr>
+                <th scope="row">Program participation</th>
+                <td class="check">Select</td><td class="check">Multiple</td><td class="check">Bespoke</td><td class="check">Select</td>
+              </tr>
+              <tr>
+                <th scope="row">Research collaboration</th>
+                <td class="x">—</td><td class="check">Yes</td><td class="check">Flagship</td><td class="x">—</td>
+              </tr>
+              <tr>
+                <th scope="row">Thought leadership</th>
+                <td class="check">Profiles</td><td class="check">Panels &amp; Papers</td><td class="check">Global Stage</td><td class="check">Profiles</td>
+              </tr>
+              <tr>
+                <th scope="row">Advisory councils</th>
+                <td class="x">—</td><td class="check">Invite</td><td class="check">Seat</td><td class="x">—</td>
+              </tr>
+              <tr>
+                <th scope="row">Dedicated account team</th>
+                <td class="x">—</td><td class="check">Yes</td><td class="check">Executive</td><td class="x">—</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="cta-row" style="margin-top:16px">
+          <a class="btn" href="#wizard" data-open-wizard>Start journey</a>
+          <button class="btn secondary" type="button" data-close-tiers>Close</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<script>
-  // Fallback node for missing images
-  function fallback(){
-    const f=document.createElement('div'); f.className='fallback'; f.textContent='Image placeholder'; return f;
-  }
+  <!-- Wizard Modal -->
+  <div class="backdrop" id="wizard" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Partner Journey Wizard">
+    <div class="modal" role="document">
+      <header>
+        <h3 style="margin:0">Partner Journey Wizard</h3>
+        <button class="close" type="button" data-close-modal aria-label="Close journey wizard">Close</button>
+      </header>
+      <div class="content">
+        <div class="card" style="margin-bottom:14px">
+          <p style="margin:0 0 .5rem">What’s your primary goal?</p>
+          <div class="cta-row">
+            <button class="btn" data-choice="awareness">Awareness</button>
+            <button class="btn" data-choice="participation">Participation</button>
+            <button class="btn" data-choice="partnership">Partnership</button>
+            <button class="btn" data-choice="leadership">Leadership</button>
+          </div>
+        </div>
 
-  // Reveal on scroll
-  (function(){
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReduced) { document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in-view')); return; }
-    const io = new IntersectionObserver((entries)=>{
-      entries.forEach(entry=>{ if(entry.isIntersecting){ entry.target.classList.add('in-view'); io.unobserve(entry.target); }});
-    },{threshold:.15});
-    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-  })();
+        <div id="suggestions" class="card" aria-live="polite">
+          <strong>Suggestions will appear here.</strong>
+          <p class="subtitle" style="margin:.35rem 0 0">Choose a goal above to see recommended next steps.</p>
+        </div>
 
-  // Modal helpers
-  function openBackdrop(el){ el.style.display='flex'; el.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; }
-  function closeBackdrop(el){ el.style.display='none'; el.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }
+        <div class="cta-row" style="margin-top:16px">
+          <a class="btn secondary" href="#tiers" data-open-tiers>Compare tiers</a>
+          <button class="btn" type="button" data-close-modal>Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  // Wizard logic
-  (function(){
-    const modal = document.getElementById('wizard');
-    const openers = document.querySelectorAll('[data-open-wizard]');
-    const closers = modal.querySelectorAll('[data-close-modal]');
-    const suggestions = document.getElementById('suggestions');
-    const goalCopy = {
-      awareness:{ title:'Recommended for Awareness', items:[
-        {label:'Organizational Membership', href:'#org-membership'},
-        {label:'Individual Membership', href:'#stage-1'},
-        {label:'Vertical Urbanism Subscription', href:'#stage-1'},
-        {label:'Competitions & Student Research', href:'#stage-1'},
-        {label:'Awards of Excellence', href:'#stage-1'}
-      ]},
-      recognition:{ title:'Recommended for Recognition', items:[
-        {label:'Sponsor Global/Regional Conferences', href:'#stage-2'},
-        {label:'Sponsor Student Programs', href:'#stage-2'},
-        {label:'Building of Distinction', href:'#stage-2'},
-        {label:'Advertise in Vertical Urbanism', href:'#stage-2'}
-      ]},
-      leadership:{ title:'Recommended for Leadership', items:[
-        {label:'Strategic Program Partnerships', href:'#stage-3'},
-        {label:'Commission a White Paper', href:'#stage-3'},
-        {label:'Commission an In Detail Volume', href:'#stage-3'},
-        {label:'Interactive Data Studies', href:'#stage-3'}
-      ]},
-      legacy:{ title:'Recommended for Legacy', items:[
-        {label:'Co-branded Technical Guides', href:'#stage-4'},
-        {label:'Long-Term Research Initiatives', href:'#stage-4'}
-      ]}
-    };
-    function render(key){
-      if(!goalCopy[key]){ suggestions.innerHTML=''; return; }
-      const {title,items}=goalCopy[key];
-      suggestions.innerHTML = `<h4 style="margin:0 0 8px">${title}</h4>
-        <ul style="list-style:none; padding:0; margin:0; display:grid; gap:10px">
-          ${items.map(i=>`<li style="border:1px solid var(--line); border-radius:10px; padding:12px; background:#141414">
-            <a class="btn secondary" href="${i.href}" data-close-modal>${i.label}</a></li>`).join('')}
-        </ul>`;
+  <div class="page-foot container">© CVU — Demo page for GitHub Pages</div>
+
+  <script>
+    /* ---------------------------
+       Smooth, ribbon-aware scroll
+    ----------------------------*/
+    function scrollToId(id){
+      const el = document.querySelector(id);
+      if(!el) return;
+      const ribbon = document.querySelector('.ecosystem');
+      const offset = ribbon ? ribbon.getBoundingClientRect().height + 12 : 0;
+      const top = el.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior:'smooth' });
     }
-    document.querySelectorAll('[data-open-wizard]').forEach(btn=>{
-      btn.addEventListener('click', ()=>{
-        openBackdrop(modal);
-        const pre=btn.getAttribute('data-choice');
-        const key=(pre==='membership'||pre==='individual')?'awareness':pre;
-        if(key){ const input=modal.querySelector(`input[name="goal"][value="${key}"]`); if(input){ input.checked=true; render(key); } }
-        modal.querySelector('button[data-close-modal]').focus();
-      });
-    });
-    closers.forEach(b=>b.addEventListener('click',()=>closeBackdrop(modal)));
-    modal.addEventListener('click', e=>{ if(e.target===modal){ closeBackdrop(modal); }});
-    window.addEventListener('keydown', e=>{ if(e.key==='Escape' && modal.style.display==='flex'){ closeBackdrop(modal); }});
-    modal.querySelectorAll('input[name="goal"]').forEach(r=>r.addEventListener('change',()=>render(r.value)));
-    modal.addEventListener('click', e=>{ const link=e.target.closest('a[data-close-modal]'); if(link){ closeBackdrop(modal); }});
-  })();
 
-  // Tiers modal
-  (function(){
-    const modal=document.getElementById('tiers-modal');
-    document.querySelectorAll('[data-open-tiers]').forEach(b=>b.addEventListener('click',()=>{ openBackdrop(modal); modal.querySelector('[data-close-tiers]').focus(); }));
-    modal.querySelectorAll('[data-close-tiers]').forEach(b=>b.addEventListener('click',()=>closeBackdrop(modal)));
-    modal.addEventListener('click',e=>{ if(e.target===modal){ closeBackdrop(modal); }});
-    window.addEventListener('keydown',e=>{ if(e.key==='Escape' && modal.style.display==='flex'){ closeBackdrop(modal);} });
-  })();
-
-  // Tooltips (click/Enter/Space toggle; Esc or outside closes)
-  (function(){
-    function closeAll(){ document.querySelectorAll('.tt[aria-expanded="true"]').forEach(t=>t.setAttribute('aria-expanded','false')); }
-    document.addEventListener('click', e=>{
-      const t = e.target.closest('.tt');
-      if(!t){ closeAll(); return; }
-      const open = t.getAttribute('aria-expanded')==='true';
-      closeAll(); t.setAttribute('aria-expanded', open?'false':'true');
+    document.addEventListener('click', (e) => {
+      const link = e.target.closest('a[href^="#stage-"], a[href="#top"]');
+      if(!link) return;
+      const id = link.getAttribute('href');
+      if(!id || id==='#') return;
+      e.preventDefault();
+      history.pushState({}, '', id);
+      scrollToId(id);
     });
-    document.addEventListener('keydown', e=>{
-      if(e.key==='Escape'){ closeAll(); }
-      if((e.key==='Enter'||e.key===' ') && e.target.classList.contains('tt')){
-        e.preventDefault();
-        const btn=e.target;
-        const open=btn.getAttribute('aria-expanded')==='true';
-        btn.setAttribute('aria-expanded', open?'false':'true');
+    window.addEventListener('load', () => { if(location.hash && location.hash.startsWith('#stage-')) scrollToId(location.hash); });
+
+    /* ---------------------------
+       Accessible modal controller
+    ----------------------------*/
+    let __suppressHistoryPop = false;
+
+    function openModal(sel){
+      const backdrop = document.querySelector(sel);
+      if(!backdrop) return;
+      const modal = backdrop.querySelector('.modal');
+      backdrop.style.display='flex';
+      backdrop.setAttribute('aria-hidden','false');
+      document.body.style.overflow='hidden';
+
+      const focusables = modal.querySelectorAll('a,button,input,select,textarea,[tabindex]:not([tabindex="-1"])');
+      const first = focusables[0] || modal;
+      const last  = focusables[focusables.length-1] || modal;
+      const opener = document.activeElement;
+      backdrop.dataset.returnSelector = opener ? (() => {
+        const uid = 'ret-' + Math.random().toString(36).slice(2);
+        opener.setAttribute('data-ret', uid);
+        return `[data-ret="${uid}"]`;
+      })() : '';
+
+      first.focus();
+
+      function trap(e){
+        if(e.key === 'Escape'){ e.preventDefault(); closeModal(sel); return; }
+        if(e.key !== 'Tab' || !focusables.length) return;
+        if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+        else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
       }
-    });
-  })();
+      backdrop._trap = trap;
+      backdrop.addEventListener('keydown', trap);
+    }
 
-  // Ecosystem ribbon highlight on scroll
-  (function(){
-    const steps=[{id:'stage-1',i:1},{id:'stage-2',i:2},{id:'stage-3',i:3},{id:'stage-4',i:4}];
-    const links=[...document.querySelectorAll('.eco-step')];
-    function setActive(i){ links.forEach(l=>l.classList.toggle('active', Number(l.dataset.step)===i)); }
-    const io=new IntersectionObserver((entries)=>{
-      entries.forEach(en=>{
-        if(en.isIntersecting){
-          const idx=steps.find(s=>s.id===en.target.id)?.i;
-          if(idx) setActive(idx);
-        }
+    function closeModal(sel){
+      const backdrop = document.querySelector(sel);
+      if(!backdrop) return;
+      backdrop.setAttribute('aria-hidden','true');
+      backdrop.style.display='none';
+      document.body.style.overflow='';
+      const retSel = backdrop.dataset.returnSelector;
+      if(retSel){
+        const opener = document.querySelector(retSel);
+        if(opener){ opener.focus(); opener.removeAttribute('data-ret'); }
+        backdrop.dataset.returnSelector='';
+      }
+      if(backdrop._trap){ backdrop.removeEventListener('keydown', backdrop._trap); delete backdrop._trap; }
+
+      // Only pop history if we are closing a modal that was opened by hash AND
+      // we are not performing a deliberate navigation (e.g., to a stage).
+      if(!__suppressHistoryPop && (location.hash === '#wizard' || location.hash.startsWith('#wizard?') || location.hash === '#tiers')){
+        history.back();
+      }
+    }
+
+    // Backdrop click to close (click outside the modal)
+    document.getElementById('wizard')?.addEventListener('click', (e)=>{ if(e.target.id==='wizard') closeModal('#wizard');});
+    document.getElementById('tiers-modal')?.addEventListener('click', (e)=>{ if(e.target.id==='tiers-modal') closeModal('#tiers-modal');});
+
+    // Close buttons
+    document.querySelectorAll('[data-close-modal]').forEach(b=>b.addEventListener('click',()=>closeModal('#wizard')));
+    document.querySelectorAll('[data-close-tiers]').forEach(b=>b.addEventListener('click',()=>closeModal('#tiers-modal')));
+
+    /* ---------------------------
+       Hash “router” for deep links
+    ----------------------------*/
+    const routes = {
+      '#wizard': () => openModal('#wizard'),
+      '#tiers' : () => openModal('#tiers-modal'),
+      '#stage-1': () => scrollToId('#stage-1'),
+      '#stage-2': () => scrollToId('#stage-2'),
+      '#stage-3': () => scrollToId('#stage-3'),
+      '#stage-4': () => scrollToId('#stage-4'),
+    };
+    function handleHash(){
+      const [path, query] = location.hash.split('?');
+      if(routes[path]) routes[path]();
+      const params = new URLSearchParams(query || '');
+      const goal = params.get('goal');
+      if(goal) setJourneyGoal(goal);
+    }
+    window.addEventListener('hashchange', handleHash);
+    window.addEventListener('load', handleHash);
+
+    // Upgrade openers to write hash instead of directly opening
+    document.querySelectorAll('[data-open-wizard]').forEach(btn=>{
+      btn.addEventListener('click', (e)=>{
+        e.preventDefault();
+        const choice = btn.getAttribute('data-choice');
+        const q = choice ? `?goal=${encodeURIComponent(choice)}` : '';
+        location.hash = '#wizard' + q;
       });
-    },{rootMargin:'-40% 0px -55% 0px', threshold:0.01});
-    steps.forEach(s=>{ const el=document.getElementById(s.id); if(el) io.observe(el); });
-    setActive(1);
-  })();
-</script>
+    });
+    document.querySelectorAll('[data-open-tiers]').forEach(btn=>{
+      btn.addEventListener('click', (e)=>{ e.preventDefault(); location.hash = '#tiers'; });
+    });
+
+    /* ---------------------------
+       IntersectionObserver: highlight active step
+    ----------------------------*/
+    const stepLinks = [...document.querySelectorAll('.eco-step')];
+    const map = {'stage-1':1,'stage-2':2,'stage-3':3,'stage-4':4};
+    const io = new IntersectionObserver((entries)=>{
+      for(const en of entries){
+        if(en.isIntersecting){
+          const i = map[en.target.id];
+          stepLinks.forEach(l => l.classList.toggle('active', Number(l.dataset.step)===i));
+        }
+      }
+    }, {rootMargin:'-45% 0px -50% 0px', threshold:0.01});
+    ['stage-1','stage-2','stage-3','stage-4'].forEach(id => { const el = document.getElementById(id); if(el) io.observe(el); });
+
+    /* ---------------------------
+       Helper: close modal(s) then go
+    ----------------------------*/
+    function closeAllModalsAndGo(id){
+      __suppressHistoryPop = true;
+      const wiz = document.getElementById('wizard');
+      const tiers = document.getElementById('tiers-modal');
+      if (wiz && wiz.getAttribute('aria-hidden') === 'false') closeModal('#wizard');
+      if (tiers && tiers.getAttribute('aria-hidden') === 'false') closeModal('#tiers-modal');
+      __suppressHistoryPop = false;
+      history.pushState({}, '', id);
+      scrollToId(id);
+    }
+
+    // Delegate clicks from links inside any modal to close-first-then-scroll
+    document.querySelectorAll('.backdrop').forEach(backdrop => {
+      backdrop.addEventListener('click', (e) => {
+        const a = e.target.closest('a[href^="#stage-"]');
+        if (!a) return;
+        e.preventDefault();
+        closeAllModalsAndGo(a.getAttribute('href'));
+      });
+    });
+
+    /* ---------------------------
+       Goal → suggestions (with wiring)
+    ----------------------------*/
+    const suggestionsEl = document.getElementById('suggestions');
+
+    function wireSuggestionLinks(scope){
+      scope.querySelectorAll('a[href="#tiers"]').forEach(btn=>{
+        btn.addEventListener('click', (e)=>{ e.preventDefault(); location.hash = '#tiers'; });
+      });
+      scope.querySelectorAll('a[href^="#stage-"]').forEach(a=>{
+        a.addEventListener('click', (e)=>{
+          e.preventDefault();
+          closeAllModalsAndGo(a.getAttribute('href'));
+        });
+      });
+    }
+
+    function setJourneyGoal(goal){
+      const data = {
+        awareness: {
+          title: 'Suggested next steps for Awareness',
+          items: [
+            'Subscribe to InDetail and News & Events updates',
+            'Attend an upcoming regional event',
+            'Explore recent award recipients'
+          ],
+          cta: { label:'Browse news & events', href:'#stage-1' }
+        },
+        participation: {
+          title: 'Suggested next steps for Participation',
+          items: [
+            'Join a City Advocacy Forum session',
+            'Apply to a focused research sprint',
+            'Contribute a case study'
+          ],
+          cta: { label:'See participation options', href:'#stage-2' }
+        },
+        partnership: {
+          title: 'Suggested next steps for Partnership',
+          items: [
+            'Select an event sponsorship package',
+            'Co-develop a research project',
+            'Plan a content collaboration in InDetail'
+          ],
+          cta: { label:'Design a partnership', href:'#stage-3' }
+        },
+        leadership: {
+          title: 'Suggested next steps for Leadership',
+          items: [
+            'Join an advisory council',
+            'Co-create a flagship initiative',
+            'Schedule a strategy call with Global Development'
+          ],
+          cta: { label:'Talk to Global Development', href:'#stage-4' }
+        }
+      };
+      const cfg = data[goal] || data.awareness;
+      suggestionsEl.innerHTML = `
+        <h4 style="margin:0 0 .35rem">${cfg.title}</h4>
+        <ul style="margin:.25rem 0 0 1.1rem">
+          ${cfg.items.map(i=>`<li>${i}</li>`).join('')}
+        </ul>
+        <div class="cta-row" style="margin-top:12px">
+          <a class="btn" href="${cfg.cta.href}">${cfg.cta.label}</a>
+          <a class="btn secondary" href="#tiers">Compare tiers</a>
+        </div>
+      `;
+      wireSuggestionLinks(suggestionsEl);
+    }
+
+    // Buttons inside wizard for quick goal set
+    document.querySelectorAll('#wizard [data-choice]').forEach(b=>{
+      b.addEventListener('click', ()=>{ setJourneyGoal(b.getAttribute('data-choice')); });
+    });
+  </script>
 </body>
 </html>
