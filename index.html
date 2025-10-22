@@ -86,7 +86,49 @@
     .btn:hover{transform:translateY(-1px)}
     .btn:focus-visible{outline:2px solid var(--cvu-accent); outline-offset:2px}
 
-    /* Compare tiers table */
+    /* Selectable CTA tiles inside wizard */
+    .tile{
+      display:flex; align-items:center; gap:10px; padding:12px 14px; border-radius:12px;
+      background:#0f0f0f; border:1px solid rgba(255,255,255,.14); cursor:pointer; user-select:none;
+      transition:transform .15s ease, border-color .2s ease, background .2s ease;
+      color: var(--cvu-text);
+    }
+    .tile:hover{transform:translateY(-1px); border-color:rgba(255,255,255,.28)}
+    .tile[aria-pressed="true"]{background:var(--cvu-accent); color:#111; border-color:transparent}
+    .tile .box{
+      width:22px; height:22px; border-radius:6px; border:2px solid rgba(255,255,255,.35); background:transparent; flex:0 0 auto;
+    }
+    .tile[aria-pressed="true"] .box{background:#111; border-color:#111; position:relative}
+    .tile[aria-pressed="true"] .box::after{
+      content:""; position:absolute; inset:3px; background:var(--cvu-accent); border-radius:4px;
+    }
+    .tile[aria-pressed="true"]{
+      color: #111;
+    }
+    .tile span{ color: inherit; }
+
+    /* Plan panel + progress */
+    .plan{
+      margin-top:14px; background:var(--cvu-card); border:1px solid rgba(255,255,255,.12); border-radius:12px; padding:14px;
+    }
+    .plan h5{margin:0 0 8px; font-size:1rem}
+    .progress{
+      width:100%; height:12px; border-radius:999px; background:#0f0f0f; border:1px solid rgba(255,255,255,.12); overflow:hidden;
+    }
+    .progress > span{display:block; height:100%; width:0%; background:var(--cvu-accent); transition:width .25s ease}
+    .plan-list{margin:10px 0 0; padding:0; list-style:none}
+    .plan-list li{display:flex; justify-content:space-between; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid rgba(255,255,255,.06)}
+    .plan-list li:last-child{border-bottom:0}
+    .rm{background:transparent; color:var(--cvu-text); border:1px solid rgba(255,255,255,.22); border-radius:8px; padding:6px 10px; cursor:pointer}
+
+    .contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px}
+    .contact-grid input{
+      width:100%; background:#0f0f0f; color:var(--cvu-text);
+      border:1px solid rgba(255,255,255,.14); border-radius:10px; padding:10px 12px;
+    }
+    .contact-grid input::placeholder{color:#8a8a8a}
+
+    /* Compare membership tiers table */
     .tiers{
       width:100%; border-collapse:separate; border-spacing:0; overflow:hidden;
       border-radius:var(--radius); background:var(--cvu-card); border:1px solid rgba(255,255,255,.08);
@@ -114,12 +156,12 @@
     .backdrop{
       position:fixed; inset:0; background:rgba(0,0,0,.7);
       display:none; align-items:center; justify-content:center;
-      z-index:1000; /* higher than ribbon; fixes prior “behind bar” issue */
+      z-index:1000; /* higher than ribbon */
     }
     .backdrop[aria-hidden="false"]{display:flex}
     .modal{
       background:var(--cvu-card); border:1px solid rgba(255,255,255,.12); border-radius:var(--radius-lg);
-      width:min(920px, 92vw); max-height:90vh; overflow:auto; box-shadow:var(--shadow);
+      width:min(1000px, 95vw); max-height:92vh; overflow:auto; box-shadow:var(--shadow);
     }
     .modal header{
       display:flex; justify-content:space-between; align-items:center; padding:18px 18px 0;
@@ -136,6 +178,7 @@
     /* Responsive */
     @media (max-width: 900px){
       .stage-grid{grid-template-columns:1fr; gap:18px}
+      .contact-grid{grid-template-columns:1fr}
     }
   </style>
 </head>
@@ -146,12 +189,12 @@
     <div class="eyebrow">Partnerships</div>
     <h1>Engage with CVU: a single, intentional journey</h1>
     <p class="lead">
-      Progress through four connected levels—<strong>Awareness</strong>, <strong>Participation</strong>,
-      <strong>Partnership</strong>, and <strong>Leadership</strong>—with clear calls to action at every step.
+      Progress through four connected levels—<strong>Get Involved</strong>, <strong>Amplify Expertise Globally</strong>,
+      <strong>Shape the Conversation</strong>, and <strong>Drive Global Impact</strong>—with clear calls to action at every step.
     </p>
     <div class="cta-row">
       <a class="btn" href="#wizard" data-open-wizard>Start journey</a>
-      <a class="btn secondary" href="#tiers" data-open-tiers>Compare tiers</a>
+      <a class="btn secondary" href="#tiers" data-open-tiers>Compare membership tiers</a>
     </div>
   </div>
 
@@ -159,10 +202,10 @@
   <nav class="ecosystem" aria-label="Engagement steps">
     <div class="container">
       <div class="eco-steps">
-        <a class="eco-step" href="#stage-1" data-step="1"><span class="num">1</span> Awareness</a>
-        <a class="eco-step" href="#stage-2" data-step="2"><span class="num">2</span> Participation</a>
-        <a class="eco-step" href="#stage-3" data-step="3"><span class="num">3</span> Partnership</a>
-        <a class="eco-step" href="#stage-4" data-step="4"><span class="num">4</span> Leadership</a>
+        <a class="eco-step" href="#stage-1" data-step="1"><span class="num">1</span> Get Involved</a>
+        <a class="eco-step" href="#stage-2" data-step="2"><span class="num">2</span> Amplify Expertise Globally</a>
+        <a class="eco-step" href="#stage-3" data-step="3"><span class="num">3</span> Shape the Conversation</a>
+        <a class="eco-step" href="#stage-4" data-step="4"><span class="num">4</span> Drive Global Impact</a>
       </div>
     </div>
   </nav>
@@ -175,14 +218,12 @@
           src="https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=1600&auto=format&fit=crop" />
       </div>
       <div>
-        <h2>1) Awareness</h2>
-        <p class="subtitle">Meet CVU through news, events, and thought leadership.</p>
+        <h2>1) Get Involved</h2>
+        <p class="subtitle">Start engaging with CVU communities, content, and programs.</p>
         <div class="card">
-          <p>Explore the <em>Vertical Urbanism</em> publication, sign up for updates, or attend a flagship event to learn what
-            partners achieve in our ecosystem.</p>
+          <p>Become a member, subscribe to <em>Vertical Urbanism</em>, and explore competitions and awards.</p>
           <div class="cta-row">
-            <a class="btn secondary" href="#wizard" data-open-wizard data-choice="awareness">Find opportunities</a>
-            <a class="btn" href="#tiers" data-open-tiers>Compare tiers</a>
+            <a class="btn secondary" href="#wizard" data-open-wizard data-choice="involved">See my options</a>
           </div>
         </div>
       </div>
@@ -197,13 +238,12 @@
           src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1600&auto=format&fit=crop" />
       </div>
       <div>
-        <h2>2) Participation</h2>
-        <p class="subtitle">Participate in programs and communities aligned to your goals.</p>
+        <h2>2) Amplify Expertise Globally</h2>
+        <p class="subtitle">Elevate your brand and expertise across CVU platforms and events.</p>
         <div class="card">
-          <p>Join forums, attend regional events, and contribute to research sprints that advance vertical urbanism.</p>
+          <p>Sponsor conferences and competitions, earn building recognition, and advertise in <em>Vertical Urbanism</em>.</p>
           <div class="cta-row">
-            <a class="btn secondary" href="#wizard" data-open-wizard data-choice="participation">Match me to programs</a>
-            <a class="btn" href="#tiers" data-open-tiers>Compare tiers</a>
+            <a class="btn secondary" href="#wizard" data-open-wizard data-choice="amplify">Build a plan</a>
           </div>
         </div>
       </div>
@@ -218,13 +258,12 @@
           src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=1600&auto=format&fit=crop" />
       </div>
       <div>
-        <h2>3) Partnership</h2>
-        <p class="subtitle">Co-create programs, sponsor initiatives, and publish impact together.</p>
+        <h2>3) Shape the Conversation</h2>
+        <p class="subtitle">Co-create content and research that advances vertical urbanism.</p>
         <div class="card">
-          <p>Choose from event sponsorship, research partnerships, and content collaborations that showcase your leadership.</p>
+          <p>Partner on strategic programs, commission white papers, and develop <em>In Detail</em> and interactive studies.</p>
           <div class="cta-row">
-            <a class="btn secondary" href="#wizard" data-open-wizard data-choice="partnership">Build a package</a>
-            <a class="btn" href="#tiers" data-open-tiers>Compare tiers</a>
+            <a class="btn secondary" href="#wizard" data-open-wizard data-choice="shape">Show opportunities</a>
           </div>
         </div>
       </div>
@@ -239,13 +278,12 @@
           src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?q=80&w=1600&auto=format&fit=crop" />
       </div>
       <div>
-        <h2>4) Leadership</h2>
-        <p class="subtitle">Shape the global agenda and invest at the highest level.</p>
+        <h2>4) Drive Global Impact</h2>
+        <p class="subtitle">Invest in flagship initiatives with sector-wide influence.</p>
         <div class="card">
-          <p>Access leadership councils and bespoke alliances that influence policy, research, and practice worldwide.</p>
+          <p>Co-curate technical guides and fund original CVU research that shapes policy and practice worldwide.</p>
           <div class="cta-row">
-            <a class="btn secondary" href="#wizard" data-open-wizard data-choice="leadership">Talk to Global Development</a>
-            <a class="btn" href="#tiers" data-open-tiers>Compare tiers</a>
+            <a class="btn secondary" href="#wizard" data-open-wizard data-choice="impact">Talk to Global Development</a>
           </div>
         </div>
       </div>
@@ -278,7 +316,7 @@
             </thead>
             <tbody>
               <tr>
-                <th scope="row">Vertical Urbanism access</th>
+                <th scope="row">InDetail access</th>
                 <td class="check">Included</td><td class="check">Included</td><td class="check">Included</td><td class="check">Included</td>
               </tr>
               <tr>
@@ -317,31 +355,54 @@
     </div>
   </div>
 
-  <!-- Wizard Modal -->
+  <!-- Wizard Modal (Cart-like) -->
   <div class="backdrop" id="wizard" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Partner Journey Wizard">
     <div class="modal" role="document">
       <header>
-        <h3 style="margin:0">Partner Journey Wizard</h3>
+        <h3 style="margin:0">Design Your CVU Journey</h3>
         <button class="close" type="button" data-close-modal aria-label="Close journey wizard">Close</button>
       </header>
       <div class="content">
+        <!-- Category selector -->
         <div class="card" style="margin-bottom:14px">
-          <p style="margin:0 0 .5rem">What’s your primary goal?</p>
+          <p style="margin:0 0 .5rem">Choose a category to add actions to your plan:</p>
           <div class="cta-row">
-            <button class="btn" data-choice="awareness">Awareness</button>
-            <button class="btn" data-choice="participation">Participation</button>
-            <button class="btn" data-choice="partnership">Partnership</button>
-            <button class="btn" data-choice="leadership">Leadership</button>
+            <button class="btn" data-choice="involved">Get Involved</button>
+            <button class="btn" data-choice="amplify">Amplify Expertise Globally</button>
+            <button class="btn" data-choice="shape">Shape the Conversation</button>
+            <button class="btn" data-choice="impact">Drive Global Impact</button>
           </div>
         </div>
 
-        <div id="suggestions" class="card" aria-live="polite">
-          <strong>Suggestions will appear here.</strong>
-          <p class="subtitle" style="margin:.35rem 0 0">Choose a goal above to see recommended next steps.</p>
+        <!-- Dynamic actions area -->
+        <div id="actions" class="card" aria-live="polite">
+          <strong>Select a category above to see actions.</strong>
+          <p class="subtitle" style="margin:.35rem 0 0">Click tiles to add/remove them from your plan.</p>
+        </div>
+
+        <!-- Plan + progress + contact + email -->
+        <div class="plan">
+          <h5>Your Plan</h5>
+          <div class="progress" aria-label="Progress"><span id="progressbar" style="width:0%"></span></div>
+          <small id="progressText" class="subtitle">0 of 6 recommended actions selected</small>
+
+          <ul id="planList" class="plan-list"></ul>
+
+          <div class="contact-grid">
+            <input id="nameInput" type="text" placeholder="Your name">
+            <input id="companyInput" type="text" placeholder="Company / Organization">
+            <input id="emailInput" type="email" placeholder="Your email">
+            <input id="notesInput" type="text" placeholder="Notes (optional)">
+          </div>
+
+          <div class="cta-row" style="margin-top:12px">
+            <button class="btn" id="composeEmail">Compose Email to CVU</button>
+            <button class="btn secondary" type="button" id="clearPlan">Clear plan</button>
+          </div>
         </div>
 
         <div class="cta-row" style="margin-top:16px">
-          <a class="btn secondary" href="#tiers" data-open-tiers>Compare tiers</a>
+          <a class="btn secondary" href="#tiers" data-open-tiers>Compare membership tiers</a>
           <button class="btn" type="button" data-close-modal>Close</button>
         </div>
       </div>
@@ -351,6 +412,50 @@
   <div class="page-foot container">© CVU — Demo page for GitHub Pages</div>
 
   <script>
+    /* ---------------------------
+       Config
+    ----------------------------*/
+    const JEN_EMAIL = "jhall@cvu.org";
+    const RECOMMENDED_TARGET = 6; // progress target (# of actions)
+
+    // Canonical action catalog
+    const CATALOG = {
+      involved: {
+        title: 'Get Involved',
+        actions: [
+          'Become a Member',
+          'Subscribe to Vertical Urbanism magazine',
+          'Enter Research & Design Competitions',
+          'Submit your Project to CVU Awards'
+        ]
+      },
+      amplify: {
+        title: 'Amplify Expertise Globally',
+        actions: [
+          'Sponsor the 2026 Global Summit & Regional Conferences',
+          'Sponsor a Student Research or Design Competition',
+          'Gain recognition as a Building of Distinction',
+          'Advertise in Vertical Urbanism magazine'
+        ]
+      },
+      shape: {
+        title: 'Shape the Conversation',
+        actions: [
+          'Become a Strategic Program Partner',
+          'Commission or Underwrite a White Paper',
+          'Commission an In Detail Publication',
+          'Commission an Interactive Study'
+        ]
+      },
+      impact: {
+        title: 'Drive Global Impact',
+        actions: [
+          'Underwrite and Co-curate a Co-branded Technical Guide',
+          'Commission or Fund a CVU Research Paper'
+        ]
+      }
+    };
+
     /* ---------------------------
        Smooth, ribbon-aware scroll
     ----------------------------*/
@@ -423,8 +528,6 @@
       }
       if(backdrop._trap){ backdrop.removeEventListener('keydown', backdrop._trap); delete backdrop._trap; }
 
-      // Only pop history if we are closing a modal that was opened by hash AND
-      // we are not performing a deliberate navigation (e.g., to a stage).
       if(!__suppressHistoryPop && (location.hash === '#wizard' || location.hash.startsWith('#wizard?') || location.hash === '#tiers')){
         history.back();
       }
@@ -439,7 +542,7 @@
     document.querySelectorAll('[data-close-tiers]').forEach(b=>b.addEventListener('click',()=>closeModal('#tiers-modal')));
 
     /* ---------------------------
-       Hash “router” for deep links
+       Hash router for deep links
     ----------------------------*/
     const routes = {
       '#wizard': () => openModal('#wizard'),
@@ -454,12 +557,12 @@
       if(routes[path]) routes[path]();
       const params = new URLSearchParams(query || '');
       const goal = params.get('goal');
-      if(goal) setJourneyGoal(goal);
+      if(goal) setCategory(goal);
     }
     window.addEventListener('hashchange', handleHash);
     window.addEventListener('load', handleHash);
 
-    // Upgrade openers to write hash instead of directly opening
+    // Openers write hash
     document.querySelectorAll('[data-open-wizard]').forEach(btn=>{
       btn.addEventListener('click', (e)=>{
         e.preventDefault();
@@ -473,7 +576,7 @@
     });
 
     /* ---------------------------
-       IntersectionObserver: highlight active step
+       Eco ribbon highlight
     ----------------------------*/
     const stepLinks = [...document.querySelectorAll('.eco-step')];
     const map = {'stage-1':1,'stage-2':2,'stage-3':3,'stage-4':4};
@@ -488,7 +591,188 @@
     ['stage-1','stage-2','stage-3','stage-4'].forEach(id => { const el = document.getElementById(id); if(el) io.observe(el); });
 
     /* ---------------------------
-       Helper: close modal(s) then go
+       Cart-like plan state
+    ----------------------------*/
+    const actionsEl = document.getElementById('actions');
+    const planList = document.getElementById('planList');
+    const progressBar = document.getElementById('progressbar');
+    const progressText = document.getElementById('progressText');
+    const composeBtn = document.getElementById('composeEmail');
+    const clearBtn = document.getElementById('clearPlan');
+
+    const nameInput = document.getElementById('nameInput');
+    const companyInput = document.getElementById('companyInput');
+    const emailInput = document.getElementById('emailInput');
+    const notesInput = document.getElementById('notesInput');
+
+    // Structure: { categoryKey: Set([actionLabel, ...]) }
+    const plan = loadPlan();
+
+    function loadPlan(){
+      try{
+        const raw = localStorage.getItem('cvu_plan_v1');
+        return raw ? revive(JSON.parse(raw)) : {};
+      }catch(e){ return {}; }
+    }
+    function savePlan(){
+      localStorage.setItem('cvu_plan_v1', JSON.stringify(dehydrate(plan)));
+    }
+    function dehydrate(obj){
+      const out = {};
+      for(const k in obj){ out[k] = Array.from(obj[k]); }
+      return out;
+    }
+    function revive(json){
+      const out = {};
+      for(const k in json){ out[k] = new Set(json[k]); }
+      return out;
+    }
+
+    function setCategory(key){
+      const cfg = CATALOG[key];
+      if(!cfg){ actionsEl.innerHTML = `<strong>Unknown category.</strong>`; return; }
+
+      // Render tiles
+      actionsEl.innerHTML = `
+        <h4 style="margin:0 0 .35rem">${cfg.title}</h4>
+        <div class="cta-row" style="margin-top:6px; flex-direction:column; align-items:stretch">
+          ${cfg.actions.map(label => {
+            const active = plan[key]?.has(label) ? 'true' : 'false';
+            return `
+              <button class="tile" data-key="${key}" data-label="${label}" aria-pressed="${active}">
+                <span class="box" aria-hidden="true"></span>
+                <span>${label}</span>
+              </button>
+            `;
+          }).join('')}
+        </div>
+      `;
+      // Wire toggles
+      actionsEl.querySelectorAll('.tile').forEach(tile=>{
+        tile.addEventListener('click', ()=>{
+          const k = tile.getAttribute('data-key');
+          const lbl = tile.getAttribute('data-label');
+          toggleItem(k, lbl);
+          tile.setAttribute('aria-pressed', plan[k]?.has(lbl) ? 'true' : 'false');
+        });
+      });
+
+      renderPlan();
+    }
+
+    function toggleItem(category, label){
+      if(!plan[category]) plan[category] = new Set();
+      if(plan[category].has(label)) plan[category].delete(label);
+      else plan[category].add(label);
+      if(plan[category].size === 0) delete plan[category];
+      savePlan();
+      renderPlan();
+    }
+
+    function renderPlan(){
+      // Build list
+      const items = [];
+      for(const k in plan){
+        for(const label of plan[k]){
+          items.push({category:k, label});
+        }
+      }
+      // Progress
+      const pct = Math.min(100, Math.round((items.length / RECOMMENDED_TARGET) * 100));
+      progressBar.style.width = pct + '%';
+      progressText.textContent = `${items.length} of ${RECOMMENDED_TARGET} recommended actions selected`;
+
+      // Render grouped list
+      const groups = {};
+      items.forEach(it => {
+        const title = CATALOG[it.category]?.title || it.category;
+        if(!groups[title]) groups[title] = [];
+        groups[title].push(it);
+      });
+
+      const html = Object.keys(groups).length === 0
+        ? `<li><em>No actions selected yet.</em></li>`
+        : Object.entries(groups).map(([title, arr]) => {
+            return `
+              <li style="display:block; border:none; padding:0 0 6px;">
+                <strong>${title}</strong>
+              </li>
+              ${arr.map(it => `
+                <li>
+                  <span>${it.label}</span>
+                  <button class="rm" data-k="${it.category}" data-l="${it.label}">Remove</button>
+                </li>
+              `).join('')}
+            `;
+          }).join('');
+
+      planList.innerHTML = html;
+
+      planList.querySelectorAll('.rm').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+          toggleItem(btn.getAttribute('data-k'), btn.getAttribute('data-l'));
+          // Also un-press tile if visible
+          const tile = actionsEl.querySelector(`.tile[data-key="${btn.getAttribute('data-k')}"][data-label="${btn.getAttribute('data-l')}"]`);
+          if(tile) tile.setAttribute('aria-pressed','false');
+        });
+      });
+    }
+
+    clearBtn.addEventListener('click', ()=>{
+      for(const k in plan){ delete plan[k]; }
+      savePlan();
+      renderPlan();
+      // Reset any visible tiles
+      actionsEl.querySelectorAll('.tile[aria-pressed="true"]').forEach(t => t.setAttribute('aria-pressed','false'));
+    });
+
+    // Compose email
+    composeBtn.addEventListener('click', ()=>{
+      const name = (nameInput.value || '').trim();
+      const company = (companyInput.value || '').trim();
+      const email = (emailInput.value || '').trim();
+      const notes = (notesInput.value || '').trim();
+
+      const lines = [];
+      lines.push(`Hello Jen,`);
+      lines.push('');
+      lines.push(`I'd like to discuss a tailored CVU engagement plan:`);
+
+      for(const k in plan){
+        const title = CATALOG[k]?.title || k;
+        lines.push('');
+        lines.push(`- ${title}:`);
+        for(const label of plan[k]){
+          lines.push(`   • ${label}`);
+        }
+      }
+
+      lines.push('');
+      if(company) lines.push(`Company: ${company}`);
+      if(name) lines.push(`Contact: ${name}`);
+      if(email) lines.push(`Email: ${email}`);
+      if(notes) { lines.push(''); lines.push(`Notes: ${notes}`); }
+      lines.push('');
+      lines.push('Thank you!');
+
+      const subject = `CVU Journey Plan${name ? ' — ' + name : ''}`;
+      const body = lines.join('\n');
+
+      const href = `mailto:${encodeURIComponent(JEN_EMAIL)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      // Open mail client
+      window.location.href = href;
+    });
+
+    // Category buttons in wizard
+    document.querySelectorAll('#wizard [data-choice]').forEach(b=>{
+      b.addEventListener('click', ()=>{ setCategory(b.getAttribute('data-choice')); });
+    });
+
+    // On load, prime plan UI & restore last viewed category (default to involved)
+    renderPlan();
+
+    /* ---------------------------
+       Helper: close modals then go
     ----------------------------*/
     function closeAllModalsAndGo(id){
       __suppressHistoryPop = true;
@@ -501,7 +785,7 @@
       scrollToId(id);
     }
 
-    // Delegate clicks from links inside any modal to close-first-then-scroll
+    // Delegate close-first-then-scroll for any stage links inside modals
     document.querySelectorAll('.backdrop').forEach(backdrop => {
       backdrop.addEventListener('click', (e) => {
         const a = e.target.closest('a[href^="#stage-"]');
@@ -509,81 +793,6 @@
         e.preventDefault();
         closeAllModalsAndGo(a.getAttribute('href'));
       });
-    });
-
-    /* ---------------------------
-       Goal → suggestions (with wiring)
-    ----------------------------*/
-    const suggestionsEl = document.getElementById('suggestions');
-
-    function wireSuggestionLinks(scope){
-      scope.querySelectorAll('a[href="#tiers"]').forEach(btn=>{
-        btn.addEventListener('click', (e)=>{ e.preventDefault(); location.hash = '#tiers'; });
-      });
-      scope.querySelectorAll('a[href^="#stage-"]').forEach(a=>{
-        a.addEventListener('click', (e)=>{
-          e.preventDefault();
-          closeAllModalsAndGo(a.getAttribute('href'));
-        });
-      });
-    }
-
-    function setJourneyGoal(goal){
-      const data = {
-        awareness: {
-          title: 'Suggested next steps for Awareness',
-          items: [
-            'Subscribe to Vertical Urbanism and News & Events updates',
-            'Attend an upcoming regional event',
-            'Explore recent award recipients'
-          ],
-          cta: { label:'Browse news & events', href:'#stage-1' }
-        },
-        participation: {
-          title: 'Suggested next steps for Participation',
-          items: [
-            'Join a City Advocacy Forum session',
-            'Apply to a focused research sprint',
-            'Contribute a case study'
-          ],
-          cta: { label:'See participation options', href:'#stage-2' }
-        },
-        partnership: {
-          title: 'Suggested next steps for Partnership',
-          items: [
-            'Select an event sponsorship package',
-            'Co-develop a research project',
-            'Plan a content collaboration in Vertical Urbanism'
-          ],
-          cta: { label:'Design a partnership', href:'#stage-3' }
-        },
-        leadership: {
-          title: 'Suggested next steps for Leadership',
-          items: [
-            'Join an advisory council',
-            'Co-create a flagship initiative',
-            'Schedule a strategy call with Global Development'
-          ],
-          cta: { label:'Talk to Global Development', href:'#stage-4' }
-        }
-      };
-      const cfg = data[goal] || data.awareness;
-      suggestionsEl.innerHTML = `
-        <h4 style="margin:0 0 .35rem">${cfg.title}</h4>
-        <ul style="margin:.25rem 0 0 1.1rem">
-          ${cfg.items.map(i=>`<li>${i}</li>`).join('')}
-        </ul>
-        <div class="cta-row" style="margin-top:12px">
-          <a class="btn" href="${cfg.cta.href}">${cfg.cta.label}</a>
-          <a class="btn secondary" href="#tiers">Compare tiers</a>
-        </div>
-      `;
-      wireSuggestionLinks(suggestionsEl);
-    }
-
-    // Buttons inside wizard for quick goal set
-    document.querySelectorAll('#wizard [data-choice]').forEach(b=>{
-      b.addEventListener('click', ()=>{ setJourneyGoal(b.getAttribute('data-choice')); });
     });
   </script>
 </body>
